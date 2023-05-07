@@ -322,16 +322,22 @@ bool ChessBoard::isInCheck()
     return false; // King is not in check
 }
 
-bool ChessBoard:: checkMate() {
+bool ChessBoard:: stalemate() {
 
-return false;
-}
-
-bool ChessBoard:: draw() {
 
 return false; 
 
 }
+
+bool ChessBoard:: checkMate() {
+
+
+// if king is in check then check for stalemate 
+//if they both true means that king is checkmated
+return false;
+}
+
+
 
 void ChessBoard:: start(){
 
