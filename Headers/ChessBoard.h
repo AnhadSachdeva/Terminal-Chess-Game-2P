@@ -24,15 +24,18 @@ public:
     void incrementTurn(); // increments the turn by 1
     bool isWhiteTurn();   // checks if it is white's turn
 
+    void start();
+
     void print();
     void makesTheMove();
     void flipBoard();
 
     bool isInCheck();
 
-    bool kingCantMove(); // This checks if the king can't move to
+    bool stalemate(); // This checks if the king can't move to
     bool checkMate();
-    bool draw();
+
+
 
     // need to do:
     //  implement check logic, if king is in check
