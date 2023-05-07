@@ -30,6 +30,8 @@ int main()
 
     Player player1(playerName1, 'w');
     Player player2(playerName2, 'b');
+    cout << "-------------------------------------------------" << endl;
+    cout << "-------------------------------------------------" << endl;
 
     cout << "Player 1: " << playerName1 << " is playing as \033[1;37mWHITE\033[0m" << endl;
     cout << "Player 2: " << playerName2 << " is playing as \033[1;30mBLACK\033[0m" << endl;
