@@ -21,8 +21,8 @@ public:
     ChessBoard();
     ~ChessBoard();
 
-    void incrementTurn(int turn); // increments the turn by 1
-    bool isWhiteTurn();           // checks if it is white's turn
+    void incrementTurn(); // increments the turn by 1
+    bool isWhiteTurn();   // checks if it is white's turn
 
     void print();
     void makesTheMove();

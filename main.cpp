@@ -54,7 +54,7 @@ int main()
         {
             chess.makesTheMove();
             chess.print();
-            chess.incrementTurn(turn);
+            chess.incrementTurn();
         }
     }
 

@@ -46,16 +46,24 @@ bool Queen::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePi
             }
         }
     }
-    else if (scalarRDest == 0 || scalarCDest == 0 || scalarRDest == scalarCDest && test->getPiecesColour() != ChessBoard[rNow][cNow]->getPiecesColour())
+    else if (scalarRDest == 0 || scalarCDest == 0 && test->getPiecesColour() != ChessBoard[rNow][cNow]->getPiecesColour())
     {
+
+        if (noPieceInBetweenRook(checkRow, checkColoumn, scalarRDest, scalarCDest, rNow, cNow, ChessBoard) == true)
+        {
+            return true;
+        }
+    }
+    else if (scalarRDest == scalarCDest && test->getPiecesColour() != ChessBoard[rNow][cNow]->getPiecesColour())
+    {
+        if (noPieceInBetweenBish(checkRow, checkColoumn, scalarRDest, scalarCDest, rNow, cNow, ChessBoard) == true)
+        {
+            return true;
+        }
 
         return true;
     }
-    else
-    {
 
-        return false;
-    }
     return false;
 }
 
@@ -111,6 +119,7 @@ bool Queen::noPieceInBetweenBish(int checkRow, int checkColoumn, int scalarRDest
 
 bool Queen::noPieceInBetweenRook(int checkRow, int checkColoumn, int scalarRDest, int scalarCDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
 {
+
     if (checkRow < 0 && checkColoumn == 0)
     {
         for (int i = 1; i < scalarRDest; i++)

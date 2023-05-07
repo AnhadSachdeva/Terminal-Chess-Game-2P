@@ -53,7 +53,7 @@ ChessBoard::~ChessBoard()
     }
 }
 
-void ChessBoard::incrementTurn(int turn)
+void ChessBoard::incrementTurn()
 {
 
     this->turn = turn + 1;
@@ -292,6 +292,7 @@ bool ChessBoard::isInCheck()
         {
             if (chessBoard[i][j] != 0 && chessBoard[i][j]->getPieces() == 'K' && chessBoard[i][j]->getPiecesColour() == playerColor)
             {
+                cout << playerColor << endl; // test
                 rKing = i;
                 cKing = j;
 
@@ -307,6 +308,7 @@ bool ChessBoard::isInCheck()
         {
             if (chessBoard[i][j] != 0)
             {
+
                 if (chessBoard[i][j]->isMoveLegal(rKing, cKing, i, j, chessBoard) == true)
                 {
 
@@ -315,5 +317,7 @@ bool ChessBoard::isInCheck()
             }
         }
     }
+    cout << endl;
+
     return false; // King is not in check
 }
