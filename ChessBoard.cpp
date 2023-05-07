@@ -286,9 +286,6 @@ bool ChessBoard::isInCheck()
         opponentColor = 'w';
     }
 
-    cout << playerColor << endl;   // test
-    cout << opponentColor << endl; // test
-
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
@@ -296,10 +293,8 @@ bool ChessBoard::isInCheck()
             if (chessBoard[i][j] != 0 && chessBoard[i][j]->getPieces() == 'K' && chessBoard[i][j]->getPiecesColour() == playerColor)
             {
                 rKing = i;
-                cout << rKing << endl; // test
-
                 cKing = j;
-                cout << cKing << endl; // test
+
                 break;
             }
         }
@@ -314,6 +309,7 @@ bool ChessBoard::isInCheck()
             {
                 if (chessBoard[i][j]->isMoveLegal(rKing, cKing, i, j, chessBoard) == true)
                 {
+
                     return true; // King is in check
                 }
             }
