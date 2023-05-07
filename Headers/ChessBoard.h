@@ -29,6 +29,8 @@ public:
     void flipBoard();
 
     bool isInCheck();
+
+    bool kingCantMove(); // This checks if the king can't move to
     bool checkMate();
     bool draw();
 
