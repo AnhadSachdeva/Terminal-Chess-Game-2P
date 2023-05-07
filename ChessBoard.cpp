@@ -321,3 +321,12 @@ bool ChessBoard::isInCheck()
 
     return false; // King is not in check
 }
+
+bool ChessBoard:: checkMate() {
+
+}
+
+bool ChessBoard:: draw() {
+
+    
+}
