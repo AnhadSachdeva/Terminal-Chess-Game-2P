@@ -187,6 +187,7 @@ void ChessBoard::makesTheMove()
 
         if (initialPiece == "kill" && destinationPiece == "kill")
         {
+
             break;
         }
 
@@ -322,24 +323,22 @@ bool ChessBoard::isInCheck()
     return false; // King is not in check
 }
 
-bool ChessBoard:: stalemate() {
+bool ChessBoard::stalemate()
+{
 
-
-return false; 
-
+    return false;
 }
 
-bool ChessBoard:: checkMate() {
+bool ChessBoard::checkMate()
+{
 
-
-// if king is in check then check for stalemate 
-//if they both true means that king is checkmated
-return false;
+    // if king is in check then check for stalemate
+    // if they both true means that king is checkmated
+    return false;
 }
 
-
-
-void ChessBoard:: start(){
+void ChessBoard::start()
+{
 
     print();
 

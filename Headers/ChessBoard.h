@@ -35,8 +35,6 @@ public:
     bool stalemate(); // This checks if the king can't move to
     bool checkMate();
 
-
-
     // need to do:
     //  implement check logic, if king is in check
     // bool GameOver(); // implement checkmate logic, king cannot move to another piece

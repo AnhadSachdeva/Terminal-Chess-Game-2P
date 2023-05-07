@@ -29,6 +29,7 @@ void Player::setupPlayers(){
     string playerName1;
     string playerName2;
 
+ 
     cout << "-----------Welcome to the Chess Game-------------" << endl;
 
     cout << "Enter the player 1 name: ";
@@ -46,6 +47,8 @@ void Player::setupPlayers(){
     cout << "Player 2: " << playerName2 << " is playing as \033[1;30mBLACK\033[0m" << endl;
 
     cout << "-------------------------------------------------" << endl;
+
+       cout << "if you wish to kill the game just enter kill twice" << endl << endl;
 
     cout << "The game has started" << endl;
 
