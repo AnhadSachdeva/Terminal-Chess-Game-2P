@@ -9,7 +9,7 @@ using namespace std;
 class Player
 {
 
-private:
+protected:
     string name;
     char color;
 

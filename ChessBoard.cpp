@@ -292,7 +292,6 @@ bool ChessBoard::isInCheck()
         {
             if (chessBoard[i][j] != 0 && chessBoard[i][j]->getPieces() == 'K' && chessBoard[i][j]->getPiecesColour() == playerColor)
             {
-                cout << playerColor << endl; // test
                 rKing = i;
                 cKing = j;
 
