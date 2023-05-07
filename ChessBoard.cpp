@@ -326,6 +326,8 @@ bool ChessBoard::isInCheck()
 bool ChessBoard::stalemate()
 {
 
+    //finds the king and check the squares around it
+
     return false;
 }
 
@@ -333,6 +335,8 @@ bool ChessBoard::checkMate()
 {
 
     // if king is in check then check for stalemate
+    //checks if any piece can take the piece that has checked the piece
+
     // if they both true means that king is checkmated
     return false;
 }
