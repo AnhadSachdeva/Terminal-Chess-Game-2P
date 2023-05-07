@@ -1,5 +1,4 @@
-#include "GamePieces.h"
-
+#include "Headers/GamePieces.h"
 
 GamePieces::GamePieces()
 {

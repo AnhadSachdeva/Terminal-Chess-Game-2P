@@ -1,6 +1,6 @@
-#include "Queen.h"
-#include "Rook.h"
-#include "Bishop.h"
+#include "Headers/Queen.h"
+#include "Headers/Rook.h"
+#include "Headers/Bishop.h"
 
 Queen::Queen()
 {

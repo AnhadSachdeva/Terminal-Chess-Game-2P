@@ -1,4 +1,4 @@
-#include "ChessBoard.h"
+#include "Headers/ChessBoard.h"
 
 ChessBoard::ChessBoard()
 {

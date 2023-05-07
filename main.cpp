@@ -1,12 +1,12 @@
-#include "ChessBoard.h"
-#include "ChessGame.h"
-#include "GamePieces.h"
-#include "King.h"
-#include "Knight.h"
-#include "Rook.h"
-#include "Bishop.h"
-#include "Queen.h"
-#include "Pawn.h"
+#include "Headers/ChessBoard.h"
+#include "Headers/ChessGame.h"
+#include "Headers/GamePieces.h"
+#include "Headers/King.h"
+#include "Headers/Knight.h"
+#include "Headers/Rook.h"
+#include "Headers/Bishop.h"
+#include "Headers/Queen.h"
+#include "Headers/Pawn.h"
 
 #include <iostream>
 

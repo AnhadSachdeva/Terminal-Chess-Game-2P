@@ -1,4 +1,4 @@
-#include "Pawn.h"
+#include "Headers/Pawn.h"
 
 Pawn::Pawn(char Colour) : GamePieces(Colour)
 {
