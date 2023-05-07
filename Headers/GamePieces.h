@@ -6,9 +6,11 @@
 #include <stdlib.h>
 #include <cstdlib>
 
+#include "Player.h"
+
 using namespace std;
 
-class GamePieces
+class GamePieces : public Player
 {
 
 protected:
