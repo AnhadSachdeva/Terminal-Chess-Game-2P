@@ -36,4 +36,3 @@ char GamePieces::getPiecesColour()
 GamePieces::~GamePieces(){
 
 };
-

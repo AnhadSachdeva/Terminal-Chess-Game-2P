@@ -27,7 +27,8 @@ bool Pawn::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePie
         // can make the
         if (scalarRDest == -2 && scalarCDest == 0)
         {
-                 if (noPieceInBetween(checkRow,checkColoumn,scalarRDest,scalarCDest,rNow,cNow,ChessBoard) == true){
+            if (noPieceInBetween(checkRow, checkColoumn, scalarRDest, scalarCDest, rNow, cNow, ChessBoard) == true)
+            {
                 return true;
             }
             // one block at a time
@@ -49,19 +50,19 @@ bool Pawn::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePie
     return false;
 }
 
+bool Pawn::noPieceInBetween(int checkRow, int checkColoumn, int scalarRDest, int scalarCDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
+{
 
-bool Pawn::noPieceInBetween(int checkRow, int checkColoumn, int scalarRDest, int scalarCDest, int rNow, int cNow,GamePieces *ChessBoard[8][8]){
-             
-              if (checkRow < 0 && checkColoumn == 0)
+    if (checkRow < 0 && checkColoumn == 0)
+    {
+        for (int i = -1; i > scalarRDest; i--)
+        {
+            if (ChessBoard[rNow + i][cNow] != 0)
             {
-                for (int i = -1; i > scalarRDest; i--)
-                {
-                    if (ChessBoard[rNow + i][cNow] != 0)
-                    {
-                        return false;
-                    }
-                }
+                return false;
             }
+        }
+    }
 
-            return true;
+    return true;
 }

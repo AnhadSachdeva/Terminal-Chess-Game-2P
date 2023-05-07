@@ -2,6 +2,7 @@
 
 ChessBoard::ChessBoard()
 {
+    this->turn = 0; // even for white, odd for black
 
     // intialises the board to all zeros
     for (int i = 0; i < 8; i++)
@@ -42,16 +43,32 @@ ChessBoard::ChessBoard()
 
 ChessBoard::~ChessBoard()
 {
-
-    // not sure why it is not deleting it
-
+    // deletes the pieces on the board
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
         {
-
-            delete[] chessBoard[i][j];
+            delete chessBoard[i][j];
         }
+    }
+}
+
+void ChessBoard::incrementTurn(int turn)
+{
+
+    this->turn = turn + 1;
+}
+
+bool ChessBoard::isWhiteTurn()
+{
+
+    if (turn % 2 == 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
 
@@ -135,26 +152,21 @@ void ChessBoard::print()
 }
 
 // chessgame
- void ChessBoard::flipBoard(){
-
-GamePieces* temp;
-
-for (int i = 0; i < 4; i++)
+void ChessBoard::flipBoard()
 {
-    for (int j = 0; j < 8; j++)
+
+    GamePieces *temp;
+
+    for (int i = 0; i < 4; i++)
     {
-     temp = chessBoard[i][j];
-    chessBoard[i][j] = chessBoard[7-i][j];
-    chessBoard[7-i][j] = temp;
+        for (int j = 0; j < 8; j++)
+        {
+            temp = chessBoard[i][j];
+            chessBoard[i][j] = chessBoard[7 - i][j];
+            chessBoard[7 - i][j] = temp;
+        }
     }
-    
-   
 }
-
-
-
- }
-
 
 void ChessBoard::makesTheMove()
 {
@@ -167,15 +179,16 @@ void ChessBoard::makesTheMove()
 
     while (validMove == false)
     {
-        
+
         cout << "Enter the piece you want to move: ";
         cin >> initialPiece;
         cout << "Enter the destination you want to move to: ";
         cin >> destinationPiece;
 
-        if (initialPiece == "kill" && destinationPiece == "kill"){
+        if (initialPiece == "kill" && destinationPiece == "kill")
+        {
             break;
-        } 
+        }
 
         if (initialPiece[0] >= 'a' && initialPiece[0] <= 'h')
         {
@@ -186,21 +199,27 @@ void ChessBoard::makesTheMove()
                     if (destinationPiece[1] >= 49 && destinationPiece[1] <= 56)
                     {
                         validMove = true;
-                    } else {
-                         cout << "invalid move please try again" << endl;
                     }
-                } else {
-                     cout << "invalid move please try again" << endl;
+                    else
+                    {
+                        cout << "invalid move please try again" << endl;
+                    }
                 }
-            } else {
-                 cout << "invalid move please try again" << endl;
+                else
+                {
+                    cout << "invalid move please try again" << endl;
+                }
             }
-        } else {
+            else
+            {
+                cout << "invalid move please try again" << endl;
+            }
+        }
+        else
+        {
             cout << "invalid move please try again" << endl;
         }
     }
-
-   
 
     cNow = initialPiece[0];
     rNow = initialPiece[1];
@@ -212,7 +231,6 @@ void ChessBoard::makesTheMove()
     cDist = cDist - 97;
     rNow = 56 - rNow;
     rDist = 56 - rDist;
-
 
     // from code line 451 to 530 it changes the input into array coordinates
 
@@ -248,4 +266,58 @@ void ChessBoard::makesTheMove()
     {
         cout << "invalid move" << endl;
     }
+}
+
+bool ChessBoard::isInCheck()
+{
+    // Find the location of the king of the player's color
+    int rKing, cKing;
+    char playerColor;
+    char opponentColor;
+
+    if (isWhiteTurn() == true)
+    {
+        playerColor = 'w';
+        opponentColor = 'b';
+    }
+    else
+    {
+        playerColor = 'b';
+        opponentColor = 'w';
+    }
+
+    cout << playerColor << endl;   // test
+    cout << opponentColor << endl; // test
+
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            if (chessBoard[i][j] != 0 && chessBoard[i][j]->getPieces() == 'K' && chessBoard[i][j]->getPiecesColour() == playerColor)
+            {
+                rKing = i;
+                cout << rKing << endl; // test
+
+                cKing = j;
+                cout << cKing << endl; // test
+                break;
+            }
+        }
+    }
+
+    // Check if any of the opponent's pieces can attack the king
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            if (chessBoard[i][j] != 0)
+            {
+                if (chessBoard[i][j]->isMoveLegal(rKing, cKing, i, j, chessBoard) == true)
+                {
+                    return true; // King is in check
+                }
+            }
+        }
+    }
+    return false; // King is not in check
 }
