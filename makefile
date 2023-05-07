@@ -1,0 +1,2 @@
+chess: main.cpp GamePieces.cpp ChessBoard.cpp Pawn.cpp Bishop.cpp Rook.cpp Knight.cpp King.cpp Queen.cpp ChessGame.cpp
+	g++ main.cpp GamePieces.cpp ChessBoard.cpp Pawn.cpp Bishop.cpp Rook.cpp Knight.cpp King.cpp Queen.cpp ChessGame.cpp -o chess
