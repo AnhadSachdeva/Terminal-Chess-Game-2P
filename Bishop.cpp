@@ -1,4 +1,4 @@
-#include "Bishop.h"
+#include "Headers/Bishop.h"
 
 Bishop::Bishop()
 {

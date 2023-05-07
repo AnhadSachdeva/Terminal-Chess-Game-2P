@@ -1,2 +1,6 @@
 # chess-2-player-OOP
-2-Player chess game terminal only
+Two player terminal chess game
+
+To Do's: 
+
+

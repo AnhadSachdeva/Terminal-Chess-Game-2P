@@ -1,10 +1,10 @@
 #ifndef GAMEPIECES_H
 #define GAMEPIECES_H
+
 #include <iostream>
 #include <string.h>
 #include <stdlib.h>
 #include <cstdlib>
-
 
 using namespace std;
 
@@ -26,8 +26,6 @@ public:
     virtual bool isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8]) = 0;
     char getPiecesColour();
     virtual ~GamePieces();
-
 };
-
 
 #endif
