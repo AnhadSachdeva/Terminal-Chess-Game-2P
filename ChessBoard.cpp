@@ -324,9 +324,32 @@ bool ChessBoard::isInCheck()
 
 bool ChessBoard:: checkMate() {
 
+return false;
 }
 
 bool ChessBoard:: draw() {
 
-    
+return false; 
+
+}
+
+void ChessBoard:: start(){
+
+    print();
+
+    for (int i = 0; i < 10; i++)
+    {
+        if (isInCheck() == true)
+        {
+            cout << "!!Check!!" << endl;
+            cout << "Game Over" << endl;
+            break;
+        }
+        else
+        {
+            makesTheMove();
+            print();
+            incrementTurn();
+        }
+    }
 }

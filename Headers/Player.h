@@ -18,6 +18,7 @@ public:
     Player(string Name, char Color);
     string getPlayerName();
     char getPlayerColor();
+    void setupPlayers();
 };
 
 #endif
