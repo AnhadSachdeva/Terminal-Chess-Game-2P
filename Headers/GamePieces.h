@@ -28,6 +28,7 @@ public:
     virtual bool isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8]) = 0;
     char getPiecesColour();
     virtual ~GamePieces();
+
 };
 
 #endif

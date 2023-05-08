@@ -176,7 +176,7 @@ void ChessBoard::makesTheMove()
     string initialPiece, destinationPiece;
 
     bool validMove;
-
+label1:
     while (validMove == false)
     {
 
@@ -187,8 +187,7 @@ void ChessBoard::makesTheMove()
 
         if (initialPiece == "kill" && destinationPiece == "kill")
         {
-
-            break;
+            exit(0);
         }
 
         if (initialPiece[0] >= 'a' && initialPiece[0] <= 'h')
@@ -232,6 +231,21 @@ void ChessBoard::makesTheMove()
     cDist = cDist - 97;
     rNow = 56 - rNow;
     rDist = 56 - rDist;
+
+    bool check = false;
+    while (check == false)
+    {
+        if (chessBoard[rNow][cNow] == 0)
+        {
+            cout << "invalid move" << endl;
+            validMove = false;
+            goto label1;
+        }
+        else
+        {
+            check = true;
+        }
+    }
 
     // from code line 451 to 530 it changes the input into array coordinates
 
