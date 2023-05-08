@@ -365,6 +365,7 @@ bool ChessBoard::checkMate()
 void ChessBoard::start()
 {
 
+//need to change this to while look 
     print();
 
     for (int i = 0; i < 10; i++)
