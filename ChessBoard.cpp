@@ -322,11 +322,40 @@ bool ChessBoard::isInCheck()
     return false; // King is not in check
 }
 
-bool ChessBoard:: checkMate() {
+bool ChessBoard:: stalemate() {
+
+
+return false; 
 
 }
 
-bool ChessBoard:: draw() {
+bool ChessBoard:: checkMate() {
 
-    
+
+// if king is in check then check for stalemate 
+//if they both true means that king is checkmated
+return false;
+}
+
+
+
+void ChessBoard:: start(){
+
+    print();
+
+    for (int i = 0; i < 10; i++)
+    {
+        if (isInCheck() == true)
+        {
+            cout << "!!Check!!" << endl;
+            cout << "Game Over" << endl;
+            break;
+        }
+        else
+        {
+            makesTheMove();
+            print();
+            incrementTurn();
+        }
+    }
 }
