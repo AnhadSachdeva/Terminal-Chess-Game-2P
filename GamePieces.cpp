@@ -14,7 +14,17 @@ bool GamePieces::isMoveLegal(int rDest, int cDest, int rNow, int cNow, GamePiece
     // "cDest" = coloumn destination
     // "rNow" = current row
     // "cNow" = current coloumn
-
+    if (ChessBoard[rNow][cNow] == 0 && ChessBoard[rDest][cDest] != 0)
+    {
+        cout << "working" << endl;
+        return false;
+    }
+    else if (ChessBoard[rNow][cNow] == 0 && ChessBoard[rDest][cDest] == 0)
+    {
+        cout << "working" << endl;
+        return false;
+    }
+    
     // makes a test piece on the destination we want to move the piece on
     GamePieces *check = ChessBoard[rDest][cDest];
     if (check == 0 || check->getPiecesColour() != this->piecesColour)

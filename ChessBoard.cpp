@@ -243,29 +243,38 @@ void ChessBoard::makesTheMove()
     GamePieces *currentPiece = chessBoard[rNow][cNow];
     GamePieces *temp;
 
-    if (currentPiece->isMoveLegal(rDist, cDist, rNow, cNow, chessBoard))
+    if (playerColor == currentPiece->getPiecesColour())
     {
-        if (chessBoard[rNow][cNow] != 0 && chessBoard[rDist][cDist] != 0)
+        if (currentPiece->isMoveLegal(rDist, cDist, rNow, cNow, chessBoard))
         {
-            if (chessBoard[rNow][cNow]->getPiecesColour() != chessBoard[rDist][cDist]->getPiecesColour())
+            if (chessBoard[rNow][cNow] != 0 && chessBoard[rDist][cDist] != 0)
             {
+                if (chessBoard[rNow][cNow]->getPiecesColour() != chessBoard[rDist][cDist]->getPiecesColour())
+                {
 
-                chessBoard[rDist][cDist] = currentPiece;
-                chessBoard[rNow][cNow] = 0;
+                    chessBoard[rDist][cDist] = currentPiece;
+                    chessBoard[rNow][cNow] = 0;
+                    incrementTurn();
+                    flipBoard();
+                }
+            }
+            else
+            {
+                temp = chessBoard[rNow][cNow];
+                chessBoard[rNow][cNow] = chessBoard[rDist][cDist];
+                chessBoard[rDist][cDist] = temp;
+                incrementTurn();
                 flipBoard();
             }
         }
         else
         {
-            temp = chessBoard[rNow][cNow];
-            chessBoard[rNow][cNow] = chessBoard[rDist][cDist];
-            chessBoard[rDist][cDist] = temp;
-            flipBoard();
+            cout << "invalid move" << endl;
         }
     }
     else
     {
-        cout << "invalid move" << endl;
+        cout << "pick your own piece" << endl;
     }
 }
 
@@ -273,18 +282,16 @@ bool ChessBoard::isInCheck()
 {
     // Find the location of the king of the player's color
     int rKing, cKing;
-    char playerColor;
-    char opponentColor;
 
     if (isWhiteTurn() == true)
     {
-        playerColor = 'w';
-        opponentColor = 'b';
+        this->playerColor = 'w';
+        this->opponentColor = 'b';
     }
     else
     {
-        playerColor = 'b';
-        opponentColor = 'w';
+        this->playerColor = 'b';
+        this->opponentColor = 'w';
     }
 
     for (int i = 0; i < 8; i++)
@@ -326,7 +333,7 @@ bool ChessBoard::isInCheck()
 bool ChessBoard::stalemate()
 {
 
-    //finds the king and check the squares around it
+    // finds the king and check the squares around it
 
     return false;
 }
@@ -335,7 +342,7 @@ bool ChessBoard::checkMate()
 {
 
     // if king is in check then check for stalemate
-    //checks if any piece can take the piece that has checked the piece
+    // checks if any piece can take the piece that has checked the piece
 
     // if they both true means that king is checkmated
     return false;
@@ -358,7 +365,6 @@ void ChessBoard::start()
         {
             makesTheMove();
             print();
-            incrementTurn();
         }
     }
 }

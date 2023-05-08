@@ -16,6 +16,8 @@ class ChessBoard
 protected:
     GamePieces *chessBoard[8][8];
     int turn;
+    char playerColor;
+    char opponentColor;
 
 public:
     ChessBoard();
