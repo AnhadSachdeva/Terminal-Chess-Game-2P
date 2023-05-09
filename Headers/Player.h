@@ -13,6 +13,8 @@ protected:
     string name;
     char color;
 
+
+
 public:
     Player();
     Player(string Name, char Color);

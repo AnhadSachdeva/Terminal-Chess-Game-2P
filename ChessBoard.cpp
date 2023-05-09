@@ -1,4 +1,6 @@
 #include "Headers/ChessBoard.h"
+#include "Headers/Player.h"
+
 
 ChessBoard::ChessBoard()
 {
@@ -301,12 +303,14 @@ bool ChessBoard::isInCheck()
     {
         this->playerColor = 'w';
         this->opponentColor = 'b';
+        cout << "White's Turn";
     }
     else
     {
         this->playerColor = 'b';
         this->opponentColor = 'w';
-    }
+           cout << "Black's Turn";
+    }   
 
     for (int i = 0; i < 8; i++)
     {
@@ -372,6 +376,7 @@ void ChessBoard::start()
     {
         if (isInCheck() == true)
         {
+            cout << endl;
             cout << "!!Check!!" << endl;
             cout << "Game Over" << endl;
             break;
