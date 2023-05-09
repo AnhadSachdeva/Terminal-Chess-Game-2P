@@ -98,7 +98,7 @@ void ChessBoard::print()
         }
         else
         {
-            cout << "\033[1;32m " << row << "\033[0m"
+            cout << "\033[1;33m " << row << "\033[0m"
                  << " ";
         }
 
@@ -107,7 +107,7 @@ void ChessBoard::print()
             // prints the a, b ,c ....
             if (row == 9)
             {
-                cout << "\033[1;32m " << coloumn << "\033[0m";
+                cout << "\033[1;33m " << coloumn << "\033[0m";
                 cout << "   ";
                 coloumn++;
             }
