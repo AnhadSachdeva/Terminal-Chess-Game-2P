@@ -20,7 +20,6 @@ int main()
     Player initalSetup;
     initalSetup.setupPlayers();
 
-
     ChessBoard chess;
     chess.start();
 
