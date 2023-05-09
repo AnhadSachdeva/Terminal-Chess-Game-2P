@@ -1,6 +1,5 @@
 !/bin/bash
 
-hugo
 
 git add .
 
@@ -9,4 +8,7 @@ git commit -m "Updates"
 git push
 
 
-# to run chmod u+x git.sh
+# to complie
+#chmod u+x git.sh
+#to run
+#terminal.sh
