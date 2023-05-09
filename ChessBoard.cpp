@@ -122,7 +122,7 @@ void ChessBoard::print()
                     {
                         // prints the black pieces
                         cout << "\033[1;33m|\033[0m"
-                             << "\033[1;30m" << chessBoard[i - 1][j]->getPiecesColour() << chessBoard[i - 1][j]->getPieces() << "\033[1;33m| \033[0m";
+                             << "\033[1;32m" << chessBoard[i - 1][j]->getPiecesColour() << chessBoard[i - 1][j]->getPieces() << "\033[1;33m| \033[0m";
                     }
                     else
                     {

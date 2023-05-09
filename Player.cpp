@@ -44,7 +44,7 @@ void Player::setupPlayers(){
     cout << "-------------------------------------------------" << endl;
 
     cout << "Player 1: " << playerName1 << " is playing as \033[1;37mWHITE\033[0m" << endl;
-    cout << "Player 2: " << playerName2 << " is playing as \033[1;30mBLACK\033[0m" << endl;
+    cout << "Player 2: " << playerName2 << " is playing as \033[1;32mBLACK\033[0m" << endl;
 
     cout << "-------------------------------------------------" << endl;
 
