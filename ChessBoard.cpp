@@ -194,6 +194,7 @@ label1:
         // ends the game
         if (initialPiece == "kill" && destinationPiece == "kill")
         {
+            system("clear");
             exit(0);
         }
 
