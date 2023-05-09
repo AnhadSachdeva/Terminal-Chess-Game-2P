@@ -180,7 +180,7 @@ void ChessBoard::makesTheMove()
     // stores the user input in here
     string initialPiece, destinationPiece;
 
-    //takes user input
+    // takes user input
     bool validMove;
 label1:
     while (validMove == false)
@@ -190,14 +190,14 @@ label1:
         cin >> initialPiece;
         cout << "Coordinates Of Where You Want To Move The Piece To: ";
         cin >> destinationPiece;
-        
-        //ends the game
+
+        // ends the game
         if (initialPiece == "kill" && destinationPiece == "kill")
         {
             exit(0);
         }
-        
-        //checks if the user made a valid move
+
+        // checks if the user made a valid move
         if (initialPiece[0] >= 'a' && initialPiece[0] <= 'h')
         {
             if (initialPiece[1] >= 49 && initialPiece[1] <= 56)
@@ -207,7 +207,6 @@ label1:
                     if (destinationPiece[1] >= 49 && destinationPiece[1] <= 56)
                     {
                         validMove = true;
-
                     }
                     else
                     {
@@ -230,8 +229,7 @@ label1:
         }
     }
 
-
-    //converts the user input into array coordinates
+    // converts the user input into array coordinates
     cNow = initialPiece[0];
     rNow = initialPiece[1];
 
@@ -243,7 +241,7 @@ label1:
     rNow = 56 - rNow;
     rDist = 56 - rDist;
 
-    //checks if the user picked a empty block then prompts the user again 
+    // checks if the user picked a empty block then prompts the user again
     bool check = false;
     while (check == false)
     {
@@ -251,7 +249,7 @@ label1:
         {
             system("clear");
             print();
-            cout << "\033[0;36mInvalid Move Please Try Again\033[0m"<< endl;
+            cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
             validMove = false;
             goto label1;
         }
@@ -262,15 +260,14 @@ label1:
         }
     }
 
-
-    //makes temp pieces
+    // makes temp pieces
     GamePieces *currentPiece = chessBoard[rNow][cNow];
     GamePieces *temp;
 
-    //checks if the player is moving their own piece
+    // checks if the player is moving their own piece
     if (playerColor == currentPiece->getPiecesColour())
     {
-        //checks if move is legal to make and then makes the move
+        // checks if move is legal to make and then makes the move
         if (currentPiece->isMoveLegal(rDist, cDist, rNow, cNow, chessBoard))
         {
             if (chessBoard[rNow][cNow] != 0 && chessBoard[rDist][cDist] != 0)
@@ -295,14 +292,17 @@ label1:
         }
         else
         {
+
             cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
         }
     }
-    //if the user didnt pick their own piece tells the user to pick your own piece
+    // if the user didnt pick their own piece tells the user to pick your own piece
     else
-    {
+        {
+
+
         cout << "\033[0;36mPlease Chose Your Own Piece\033[0m" << endl;
-    }
+        }
 }
 
 bool ChessBoard::isInCheck()
