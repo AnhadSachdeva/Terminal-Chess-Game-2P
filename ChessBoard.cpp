@@ -207,6 +207,7 @@ label1:
                     if (destinationPiece[1] >= 49 && destinationPiece[1] <= 56)
                     {
                         validMove = true;
+
                     }
                     else
                     {
@@ -248,6 +249,8 @@ label1:
     {
         if (chessBoard[rNow][cNow] == 0)
         {
+            system("clear");
+            print();
             cout << "\033[0;36mInvalid Move Please Try Again\033[0m"<< endl;
             validMove = false;
             goto label1;
@@ -255,6 +258,7 @@ label1:
         else
         {
             check = true;
+            system("clear");
         }
     }
 
