@@ -6,32 +6,35 @@ Player::Player()
 
 Player::Player(string Name, char Color)
 {
-
+    //sets up the player name and color
     this->name = Name;
     this->color = Color;
 }
 
 string Player::getPlayerName()
 {
-
+    //returns the plaeyrs name
     return this->name;
 }
 
 char Player::getPlayerColor()
 {
-
+    //returns the plaeyrs colour
     return this->color;
 }
 
 
 void Player::setupPlayers(){
     
+    //Prompts the user to enter their name and tells the user what pieces you have been assigned
+
     string playerName1;
     string playerName2;
 
  
     cout << "-----------Welcome to the Chess Game-------------" << endl;
 
+    //takes inout
     cout << "Enter the player 1 name: ";
     cin >> playerName1;
 

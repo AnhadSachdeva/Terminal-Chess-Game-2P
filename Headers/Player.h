@@ -6,6 +6,8 @@
 
 using namespace std;
 
+//Base Class 
+
 class Player
 {
 
@@ -16,6 +18,7 @@ protected:
 
 
 public:
+
     Player();
     Player(string Name, char Color);
     string getPlayerName();

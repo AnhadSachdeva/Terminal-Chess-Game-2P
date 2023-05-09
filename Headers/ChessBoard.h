@@ -14,38 +14,50 @@ class ChessBoard
 {
 
 protected:
+    // an 8x8 matrix/array of gamepiece pointers
     GamePieces *chessBoard[8][8];
+    // counts the total number of turns that has happened
     int turn;
+    // stores the player colour
     char playerColor;
+    // stores the opponents colour
     char opponentColor;
 
 public:
+    // initialises the pieces on the baord
     ChessBoard();
+
+    //deletes the dynamic memory
     ~ChessBoard();
 
-    void incrementTurn(); // increments the turn by 1
-    bool isWhiteTurn();   // checks if it is white's turn
+    //everytime a valid move is perfomed it increases the turn
+    void incrementTurn(); 
 
+    //checks if it is either whites or blacks turn
+    bool isWhiteTurn();  
+
+    //starts the game the main while loop goes here
     void start();
 
+    //prints the pieces and baord layout
     void print();
+
+    //takes user input and see if it valid and then makes a legal move
     void makesTheMove();
+
+    //flips the board after each players turn
     void flipBoard();
 
+    //checks if king is in check
     bool isInCheck();
 
-    bool stalemate(); // This checks if the king can't move to
+    //checks if king has no legal moves so ends in a draw
+
+    bool stalemate();
+    
+    //determines who won
     bool checkMate();
 
-    // need to do:
-    //  implement check logic, if king is in check
-    // bool GameOver(); // implement checkmate logic, king cannot move to another piece
-    // bool Draw(); // implement draw logic, if king is not in check and cannot move
-    // void start(); // check if game over is false, then it runs the while loop // Start the game
-
-    // btw there are function to get the color and piece id so look into it:
-    //  getPieceColor() // returns 'b' for black or 'w' for white
-    //  getPieces() // returns 'K' for King, 'Q' for Queen, 'R' for Rook, 'B' for Bishop, 'N' for Knight, 'P' for Pawn
 };
 
 #endif
