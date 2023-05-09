@@ -82,6 +82,7 @@ void ChessBoard::print()
     int row = 9;
     int bRow = 0;
     char coloumn = 'a';
+    char bColoumn = 'h';
 
     for (int i = 0; i < 9; i++)
     {
@@ -113,47 +114,58 @@ void ChessBoard::print()
 
         for (int j = 0; j < 8; j++)
         {
-          
-                // prints the a, b ,c ....
+
+            // prints the a, b ,c ....
+            if (isWhiteTurn() == true)
+            {
                 if (row == 9)
                 {
                     cout << "\033[0;33m " << coloumn << "\033[0m";
                     cout << "   ";
                     coloumn++;
                 }
-
-                // prints the peices on the baord;
-                if (row < 9 && coloumn > 0)
+            }
+            else
+            {
+                if (bRow == 0)
                 {
-                    if (chessBoard[i - 1][j] != 0)
+                    cout << "\033[0;33m " << bColoumn << "\033[0m";
+                    cout << "   ";
+                    bColoumn--;
+                }
+            }
+
+            // prints the peices on the baord;
+            if (row < 9 && coloumn > 0)
+            {
+                if (chessBoard[i - 1][j] != 0)
+                {
+                    // checks if the piece colour is black
+                    if (chessBoard[i - 1][j]->getPiecesColour() == 'b')
                     {
-                        // checks if the piece colour is black
-                        if (chessBoard[i - 1][j]->getPiecesColour() == 'b')
-                        {
-                            // prints the black pieces
-                            cout << "\033[1;33m|\033[0m"
-                                 << "\033[1;32m" << chessBoard[i - 1][j]->getPiecesColour() << chessBoard[i - 1][j]->getPieces() << "\033[1;33m| \033[0m";
-                        }
-                        else
-                        {
-                            // prints the white peies
-                            cout << "\033[1;33m|\033[0m"
-                                 << "\033[1;37m" << chessBoard[i - 1][j]->getPiecesColour() << chessBoard[i - 1][j]->getPieces() << "\033[1;33m| \033[0m";
-                        }
+                        // prints the black pieces
+                        cout << "\033[1;33m|\033[0m"
+                             << "\033[1;32m" << chessBoard[i - 1][j]->getPiecesColour() << chessBoard[i - 1][j]->getPieces() << "\033[1;33m| \033[0m";
                     }
                     else
                     {
-                        // checks if they are equal to zero
-                        if (chessBoard[i - 1][j] == 0)
-                        {
-                            // prints spaces instead of zeros
-                            cout << "\033[1;33m|\033[0m"
-                                 << "  "
-                                 << "\033[1;33m| \033[0m";
-                        }
+                        // prints the white peies
+                        cout << "\033[1;33m|\033[0m"
+                             << "\033[1;37m" << chessBoard[i - 1][j]->getPiecesColour() << chessBoard[i - 1][j]->getPieces() << "\033[1;33m| \033[0m";
                     }
                 }
-            
+                else
+                {
+                    // checks if they are equal to zero
+                    if (chessBoard[i - 1][j] == 0)
+                    {
+                        // prints spaces instead of zeros
+                        cout << "\033[1;33m|\033[0m"
+                             << "  "
+                             << "\033[1;33m| \033[0m";
+                    }
+                }
+            }
         }
 
         bRow++;
@@ -285,6 +297,7 @@ void ChessBoard::makesTheMove()
     }
     else
     {
+        // if blacks turn
 
         bool validMove;
     label2:
@@ -342,8 +355,8 @@ void ChessBoard::makesTheMove()
         cDist = destinationPiece[0];
         rDist = destinationPiece[1];
 
-        cNow = cNow - 97;
-        cDist = cDist - 97;
+        cNow = 104 - cNow;
+        cDist = 104 - cDist;
         rNow = rNow - 49;
         rDist = rDist - 49;
 
