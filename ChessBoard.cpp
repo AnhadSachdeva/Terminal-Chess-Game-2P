@@ -1,5 +1,4 @@
 #include "Headers/ChessBoard.h"
-#include "Headers/Player.h"
 
 ChessBoard::ChessBoard()
 {
@@ -299,7 +298,7 @@ label1:
     bool check = false;
     while (check == false)
     {
-
+     
         if (chessBoard[rNow][cNow] == 0 && chessBoard[rDist][cDist] == 0)
         {
             system("clear");
@@ -345,11 +344,14 @@ label1:
         validMove = false;
         goto label1;
     }
+
     // makes temp pieces
     GamePieces *currentPiece = chessBoard[rNow][cNow];
     GamePieces *temp;
+    printf("\n");
 
     // checks if the player is moving their own piece
+
     if (playerColor == currentPiece->getPiecesColour())
     {
         // checks if move is legal to make and then makes the move
