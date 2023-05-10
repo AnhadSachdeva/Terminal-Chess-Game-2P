@@ -1,6 +1,8 @@
 #include "Headers/ChessBoard.h"
 #include "Headers/Player.h"
 
+
+
 ChessBoard::ChessBoard()
 {
     // even for white, odd for black
@@ -91,7 +93,7 @@ void ChessBoard::print()
         {
             if (row == 9)
             {
-                cout << "    ";
+                cout << "   ";
             }
             else
             {
@@ -103,7 +105,7 @@ void ChessBoard::print()
         {
             if (bRow == 0)
             {
-                cout << "    ";
+                cout << "   ";
             }
             else
             {
@@ -114,58 +116,54 @@ void ChessBoard::print()
 
         for (int j = 0; j < 8; j++)
         {
-
-            // prints the a, b ,c ....
-            if (isWhiteTurn() == true)
-            {
+          
+                // prints the a, b ,c ....
+                if (isWhiteTurn() == true){
                 if (row == 9)
                 {
                     cout << "\033[0;33m " << coloumn << "\033[0m";
-                    cout << "   ";
+                    cout << "  ";
                     coloumn++;
+                }} else {
+                    if (bRow == 0){
+                          cout << "\033[0;33m " << bColoumn << "\033[0m";
+                    cout << "  ";
+                        bColoumn--;
+                    }
                 }
-            }
-            else
-            {
-                if (bRow == 0)
-                {
-                    cout << "\033[0;33m " << bColoumn << "\033[0m";
-                    cout << "   ";
-                    bColoumn--;
-                }
-            }
 
-            // prints the peices on the baord;
-            if (row < 9 && coloumn > 0)
-            {
-                if (chessBoard[i - 1][j] != 0)
+                // prints the peices on the baord;
+                if (row < 9 && coloumn > 0)
                 {
-                    // checks if the piece colour is black
-                    if (chessBoard[i - 1][j]->getPiecesColour() == 'b')
+                    if (chessBoard[i - 1][j] != 0)
                     {
-                        // prints the black pieces
-                        cout << "\033[1;33m|\033[0m"
-                             << "\033[1;32m" << chessBoard[i - 1][j]->getPiecesColour() << chessBoard[i - 1][j]->getPieces() << "\033[1;33m| \033[0m";
+                        // checks if the piece colour is black
+                        if (chessBoard[i - 1][j]->getPiecesColour() == 'b')
+                        {
+                            // prints the black pieces
+                            cout << "\033[1;33m|\033[0m"
+                                 << "\033[1;32m" << chessBoard[i - 1][j]->getPieces() << "\033[1;33m| \033[0m";
+                        }
+                        else
+                        {
+                            // prints the white peies
+                            cout << "\033[1;33m|\033[0m"
+                                 << "\033[1;37m" << chessBoard[i - 1][j]->getPieces() << "\033[1;33m| \033[0m";
+                        }
                     }
                     else
                     {
-                        // prints the white peies
-                        cout << "\033[1;33m|\033[0m"
-                             << "\033[1;37m" << chessBoard[i - 1][j]->getPiecesColour() << chessBoard[i - 1][j]->getPieces() << "\033[1;33m| \033[0m";
+                        // checks if they are equal to zero
+                        if (chessBoard[i - 1][j] == 0)
+                        {
+                            // prints spaces instead of zeros
+                            cout << "\033[1;33m|\033[0m"
+                                 << " "
+                                 << "\033[1;33m| \033[0m";
+                        }
                     }
                 }
-                else
-                {
-                    // checks if they are equal to zero
-                    if (chessBoard[i - 1][j] == 0)
-                    {
-                        // prints spaces instead of zeros
-                        cout << "\033[1;33m|\033[0m"
-                             << "  "
-                             << "\033[1;33m| \033[0m";
-                    }
-                }
-            }
+            
         }
 
         bRow++;
@@ -173,7 +171,7 @@ void ChessBoard::print()
 
         cout << endl;
 
-        cout << "\033[0;33m    --   --   --   --   --   --   --   --\033[0m";
+        cout << "\033[0;33m    -   -   -   -   -   -   -   - \033[0m";
         cout << endl;
     }
 }
@@ -297,7 +295,7 @@ void ChessBoard::makesTheMove()
     }
     else
     {
-        // if blacks turn
+        //if blacks turn
 
         bool validMove;
     label2:
