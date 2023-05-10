@@ -1,8 +1,6 @@
 #include "Headers/ChessBoard.h"
 #include "Headers/Player.h"
 
-
-
 ChessBoard::ChessBoard()
 {
     // even for white, odd for black
@@ -116,54 +114,58 @@ void ChessBoard::print()
 
         for (int j = 0; j < 8; j++)
         {
-          
-                // prints the a, b ,c ....
-                if (isWhiteTurn() == true){
+
+            // prints the a, b ,c ....
+            if (isWhiteTurn() == true)
+            {
                 if (row == 9)
                 {
                     cout << "\033[0;33m " << coloumn << "\033[0m";
                     cout << "  ";
                     coloumn++;
-                }} else {
-                    if (bRow == 0){
-                          cout << "\033[0;33m " << bColoumn << "\033[0m";
-                    cout << "  ";
-                        bColoumn--;
-                    }
                 }
-
-                // prints the peices on the baord;
-                if (row < 9 && coloumn > 0)
+            }
+            else
+            {
+                if (bRow == 0)
                 {
-                    if (chessBoard[i - 1][j] != 0)
+                    cout << "\033[0;33m " << bColoumn << "\033[0m";
+                    cout << "  ";
+                    bColoumn--;
+                }
+            }
+
+            // prints the peices on the baord;
+            if (row < 9 && coloumn > 0)
+            {
+                if (chessBoard[i - 1][j] != 0)
+                {
+                    // checks if the piece colour is black
+                    if (chessBoard[i - 1][j]->getPiecesColour() == 'b')
                     {
-                        // checks if the piece colour is black
-                        if (chessBoard[i - 1][j]->getPiecesColour() == 'b')
-                        {
-                            // prints the black pieces
-                            cout << "\033[1;33m|\033[0m"
-                                 << "\033[1;32m" << chessBoard[i - 1][j]->getPieces() << "\033[1;33m| \033[0m";
-                        }
-                        else
-                        {
-                            // prints the white peies
-                            cout << "\033[1;33m|\033[0m"
-                                 << "\033[1;37m" << chessBoard[i - 1][j]->getPieces() << "\033[1;33m| \033[0m";
-                        }
+                        // prints the black pieces
+                        cout << "\033[1;33m|\033[0m"
+                             << "\033[1;32m" << chessBoard[i - 1][j]->getPieces() << "\033[1;33m| \033[0m";
                     }
                     else
                     {
-                        // checks if they are equal to zero
-                        if (chessBoard[i - 1][j] == 0)
-                        {
-                            // prints spaces instead of zeros
-                            cout << "\033[1;33m|\033[0m"
-                                 << " "
-                                 << "\033[1;33m| \033[0m";
-                        }
+                        // prints the white peies
+                        cout << "\033[1;33m|\033[0m"
+                             << "\033[1;37m" << chessBoard[i - 1][j]->getPieces() << "\033[1;33m| \033[0m";
                     }
                 }
-            
+                else
+                {
+                    // checks if they are equal to zero
+                    if (chessBoard[i - 1][j] == 0)
+                    {
+                        // prints spaces instead of zeros
+                        cout << "\033[1;33m|\033[0m"
+                             << " "
+                             << "\033[1;33m| \033[0m";
+                    }
+                }
+            }
         }
 
         bRow++;
@@ -211,173 +213,138 @@ void ChessBoard::makesTheMove()
     string initialPiece, destinationPiece;
 
     // takes user input
-    if (playerColor == 'w')
+
+    bool validMove;
+label1:
+    while (validMove == false)
     {
-        bool validMove;
-    label1:
-        while (validMove == false)
+
+        cout << "Coordinates Of The Piece You Want To Move: ";
+        cin >> initialPiece;
+        cout << "Coordinates Of Where You Want To Move The Piece To: ";
+        cin >> destinationPiece;
+
+        // ends the game
+        if (initialPiece == "kill" && destinationPiece == "kill")
         {
+            system("clear");
+            exit(0);
+        }
 
-            cout << "Coordinates Of The Piece You Want To Move: ";
-            cin >> initialPiece;
-            cout << "Coordinates Of Where You Want To Move The Piece To: ";
-            cin >> destinationPiece;
-
-            // ends the game
-            if (initialPiece == "kill" && destinationPiece == "kill")
+        // checks if the user made a valid move
+        if (initialPiece[0] >= 'a' && initialPiece[0] <= 'h')
+        {
+            if (initialPiece[1] >= 49 && initialPiece[1] <= 56)
             {
-                system("clear");
-                exit(0);
-            }
-
-            // checks if the user made a valid move
-            if (initialPiece[0] >= 'a' && initialPiece[0] <= 'h')
-            {
-                if (initialPiece[1] >= 49 && initialPiece[1] <= 56)
+                if (destinationPiece[0] >= 'a' && destinationPiece[0] <= 'h')
                 {
-                    if (destinationPiece[0] >= 'a' && destinationPiece[0] <= 'h')
+                    if (destinationPiece[1] >= 49 && destinationPiece[1] <= 56)
                     {
-                        if (destinationPiece[1] >= 49 && destinationPiece[1] <= 56)
-                        {
-                            validMove = true;
-                        }
-                        else
-                        {
-                            cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-                        }
+                        validMove = true;
                     }
                     else
                     {
+                        system("clear");
+                        print();
                         cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
                     }
                 }
                 else
                 {
+                    system("clear");
+                    print();
+
                     cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
                 }
             }
             else
             {
+                system("clear");
+                print();
+
                 cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
             }
         }
+        else
+        {
+            system("clear");
+            print();
 
-        // converts the user input into array coordinates
-        cNow = initialPiece[0];
-        rNow = initialPiece[1];
+            cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
+        }
+    }
+    // converts the user input into array coordinates
+    cNow = initialPiece[0];
+    rNow = initialPiece[1];
 
-        cDist = destinationPiece[0];
-        rDist = destinationPiece[1];
+    cDist = destinationPiece[0];
+    rDist = destinationPiece[1];
 
+    if (isWhiteTurn() == true)
+    {
         cNow = cNow - 97;
         cDist = cDist - 97;
         rNow = 56 - rNow;
         rDist = 56 - rDist;
+    }
+    else
+    {
+        cNow = 104 - cNow;
+        cDist = 104 - cDist;
+        rNow = rNow - 49;
+        rDist = rDist - 49;
+    }
 
-        // checks if the user picked a empty block then prompts the user again
-        bool check = false;
-        while (check == false)
+    // checks if the user picked a empty block then prompts the user again
+    bool check = false;
+    while (check == false)
+    {
+
+        if (chessBoard[rNow][cNow] == 0 && chessBoard[rDist][cDist] == 0)
         {
-            if (chessBoard[rNow][cNow] == 0)
+            system("clear");
+            print();
+            cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
+            validMove = false;
+            goto label1;
+        }
+        else if (rNow == cNow == rDist == cDist)
+        {
+            system("clear");
+            print();
+            cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
+            validMove = false;
+            goto label1;
+        }
+        else if (chessBoard[rNow][cNow] == 0 || chessBoard[rNow][cNow]->getPiecesColour() != playerColor)
+        {
+            GamePieces *cP = chessBoard[rNow][cNow];
+            if (cP->isMoveLegal(rDist, cDist, rNow, cNow, chessBoard) != true)
             {
                 system("clear");
                 print();
                 cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
                 validMove = false;
                 goto label1;
-            }
-            else
-            {
-                check = true;
-                system("clear");
+                delete cP;
             }
         }
+        //
+        else
+        {
+            check = true;
+            system("clear");
+        }
     }
-    else
+
+    if (rDist == rNow && cDist == cNow)
     {
-        //if blacks turn
-
-        bool validMove;
-    label2:
-        while (validMove == false)
-        {
-
-            cout << "Coordinates Of The Piece You Want To Move: ";
-            cin >> initialPiece;
-            cout << "Coordinates Of Where You Want To Move The Piece To: ";
-            cin >> destinationPiece;
-
-            // ends the game
-            if (initialPiece == "kill" && destinationPiece == "kill")
-            {
-                system("clear");
-                exit(0);
-            }
-
-            // checks if the user made a valid move
-            if (initialPiece[0] >= 'a' && initialPiece[0] <= 'h')
-            {
-                if (initialPiece[1] >= 49 && initialPiece[1] <= 56)
-                {
-                    if (destinationPiece[0] >= 'a' && destinationPiece[0] <= 'h')
-                    {
-                        if (destinationPiece[1] >= 49 && destinationPiece[1] <= 56)
-                        {
-                            validMove = true;
-                        }
-                        else
-                        {
-                            cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-                        }
-                    }
-                    else
-                    {
-                        cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-                    }
-                }
-                else
-                {
-                    cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-                }
-            }
-            else
-            {
-                cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-            }
-        }
-
-        // converts the user input into array coordinates
-        cNow = initialPiece[0];
-        rNow = initialPiece[1];
-
-        cDist = destinationPiece[0];
-        rDist = destinationPiece[1];
-
-        cNow = 104 - cNow;
-        cDist = 104 - cDist;
-        rNow = rNow - 49;
-        rDist = rDist - 49;
-
-        // checks if the user picked a empty block then prompts the user again
-        bool check = false;
-        while (check == false)
-        {
-            if (chessBoard[rNow][cNow] == 0)
-            {
-                system("clear");
-                print();
-                cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-                validMove = false;
-                goto label2;
-            }
-            else
-            {
-                check = true;
-                system("clear");
-            }
-        }
+        system("clear");
+        print();
+        cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
+        validMove = false;
+        goto label1;
     }
-
     // makes temp pieces
     GamePieces *currentPiece = chessBoard[rNow][cNow];
     GamePieces *temp;
@@ -408,17 +375,6 @@ void ChessBoard::makesTheMove()
                 flipBoard();
             }
         }
-        else
-        {
-
-            cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-        }
-    }
-    // if the user didnt pick their own piece tells the user to pick your own piece
-    else
-    {
-
-        cout << "\033[0;36mPlease Chose Your Own Piece\033[0m" << endl;
     }
 }
 
