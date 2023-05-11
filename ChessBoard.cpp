@@ -80,8 +80,8 @@ void ChessBoard::print()
 
     int row = 9;
     int bRow = 0;
-    char coloumn = 'a';
-    char bColoumn = 'h';
+    char column = 'a';
+    char bColumn = 'h';
 
     for (int i = 0; i < 9; i++)
     {
@@ -119,23 +119,23 @@ void ChessBoard::print()
             {
                 if (row == 9)
                 {
-                    cout << "\033[0;33m " << coloumn << "\033[0m";
+                    cout << "\033[0;33m " << column << "\033[0m";
                     cout << "  ";
-                    coloumn++;
+                    column++;
                 }
             }
             else
             {
                 if (bRow == 0)
                 {
-                    cout << "\033[0;33m " << bColoumn << "\033[0m";
+                    cout << "\033[0;33m " << bColumn << "\033[0m";
                     cout << "  ";
-                    bColoumn--;
+                    bColumn--;
                 }
             }
 
             // prints the peices on the baord;
-            if (row < 9 && coloumn > 0)
+            if (row < 9 && column > 0)
             {
                 if (chessBoard[i - 1][j] != 0)
                 {
@@ -294,15 +294,15 @@ label1:
         rDist = rDist - 49;
     }
 
-    if (chessBoard[rNow][cNow]->isMoveLegal(rDist, cDist, rNow, cNow, chessBoard) != true)
-    {
-        system("clear");
+
+
+    if (cDist == cNow && rDist == rNow){
+          system("clear");
         print();
         validMove = false;
         cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
         goto label1;
     }
-
     // checks if the user picked a empty block then prompts the user again
     bool check = false;
     while (check == false)
@@ -336,7 +336,14 @@ label1:
             system("clear");
         }
     }
-
+    if (chessBoard[rNow][cNow]->isMoveLegal(rDist, cDist, rNow, cNow, chessBoard) != true)
+    {
+        system("clear");
+        print();
+        validMove = false;
+        cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
+        goto label1;
+    }
     // makes temp pieces
     GamePieces *currentPiece = chessBoard[rNow][cNow];
     GamePieces *temp;
@@ -436,8 +443,7 @@ bool ChessBoard::checkMate()
 {
     if (isInCheck())
     {
-        cout << "you are in check" << endl;
-
+        
         for (int rowCurrent = 0; rowCurrent < 8; ++rowCurrent)
         {
             for (int columnCurrent = 0; columnCurrent < 8; ++columnCurrent)
@@ -475,9 +481,10 @@ bool ChessBoard::checkMate()
             }
         }
 
-        cout << endl
-             << "CheckMate" << endl;
+        cout << endl << "\033[0;36m||CHECKMATE||\033[0;0m" << endl;
         return true;
+
+    cout << endl << "\033[0;36m||CHECK||\033[0;0m" << endl;
     }
     else
     {
