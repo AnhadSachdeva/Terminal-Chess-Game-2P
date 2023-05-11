@@ -434,11 +434,6 @@ bool ChessBoard::stalemate()
 
 bool ChessBoard::checkMate()
 {
-
-    // if king is in check then check for stalemate
-    // checks if any piece can take the piece that has checked the piece
-
-    // if they both true means that king is checkmated
     if (isInCheck())
     {
         cout << "you are in check" << endl;
@@ -449,7 +444,7 @@ bool ChessBoard::checkMate()
             {
                 if (chessBoard[rowCurrent][columnCurrent] != 0)
                 {
-                    // If it is a piece of the current player, see if it has a legal move
+                    
                     if (chessBoard[rowCurrent][columnCurrent]->getPiecesColour() == playerColor)
                     {
                         for (int row = 0; row < 8; ++row)
@@ -458,12 +453,13 @@ bool ChessBoard::checkMate()
                             {
                                 if (chessBoard[rowCurrent][columnCurrent]->isMoveLegal(row, col, rowCurrent, columnCurrent, chessBoard))
                                 {
-                                    // Make move and check whether king is in check
+                                   
                                     GamePieces *tempMove = chessBoard[row][col];
                                     chessBoard[row][col] = chessBoard[rowCurrent][columnCurrent];
                                     chessBoard[rowCurrent][columnCurrent] = 0;
+
                                     bool thereIsAMove = isInCheck();
-                                    // Undo the move
+                              
                                     chessBoard[rowCurrent][columnCurrent] = chessBoard[row][col];
                                     chessBoard[row][col] = tempMove;
 
@@ -489,10 +485,10 @@ bool ChessBoard::checkMate()
     }
 }
 
+
 void ChessBoard::start()
 {
 
-    // need to change this to while look
     print();
 
     bool gameOver = false;
@@ -500,13 +496,15 @@ void ChessBoard::start()
     do
     {
         string Player;
-        if(isWhiteTurn()){
+        if (isWhiteTurn())
+        {
             Player = "White's Turn";
             cout << Player;
-        } else {
+        }
+        else
+        {
             Player = "Blacks's Turn";
             cout << Player;
-
         }
 
         if (checkMate())
