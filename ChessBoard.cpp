@@ -483,7 +483,7 @@ bool ChessBoard::checkMate()
             }
         }
 
-        cout << endl << "\033[0;36m||CHECKMATE||\033[0;0m" << endl;
+        cout << endl << "\033[0;36m||YOU LOST CHECKMATE||\033[0;0m" << endl;
         return true;
     }
     else
