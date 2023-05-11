@@ -22,8 +22,8 @@ ChessBoard::ChessBoard()
     chessBoard[0][0] = new Rook('b');
     chessBoard[0][1] = new Knight('b');
     chessBoard[0][2] = new Bishop('b');
-    chessBoard[0][3] = new King('b');
-    chessBoard[0][4] = new Queen('b');
+    chessBoard[0][3] = new Queen('b');
+    chessBoard[0][4] = new King('b');
     chessBoard[0][5] = new Bishop('b');
     chessBoard[0][6] = new Knight('b');
     chessBoard[0][7] = new Rook('b');
@@ -80,8 +80,8 @@ void ChessBoard::print()
 
     int row = 9;
     int bRow = 0;
-    char coloumn = 'a';
-    char bColoumn = 'h';
+    char column = 'a';
+    char bColumn = 'h';
 
     for (int i = 0; i < 9; i++)
     {
@@ -119,23 +119,23 @@ void ChessBoard::print()
             {
                 if (row == 9)
                 {
-                    cout << "\033[0;33m " << coloumn << "\033[0m";
+                    cout << "\033[0;33m " << column << "\033[0m";
                     cout << "  ";
-                    coloumn++;
+                    column++;
                 }
             }
             else
             {
                 if (bRow == 0)
                 {
-                    cout << "\033[0;33m " << bColoumn << "\033[0m";
+                    cout << "\033[0;33m " << bColumn << "\033[0m";
                     cout << "  ";
-                    bColoumn--;
+                    bColumn--;
                 }
             }
 
             // prints the peices on the baord;
-            if (row < 9 && coloumn > 0)
+            if (row < 9 && column > 0)
             {
                 if (chessBoard[i - 1][j] != 0)
                 {
@@ -176,6 +176,7 @@ void ChessBoard::print()
         cout << endl;
     }
 }
+
 
 void ChessBoard::flipBoard()
 {
@@ -294,12 +295,27 @@ label1:
         rDist = rDist - 49;
     }
 
+
+
+    if (cDist == cNow && rDist == rNow){
+          system("clear");
+        print();
+        validMove = false;
+        cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
+        goto label1;
+    }
     // checks if the user picked a empty block then prompts the user again
     bool check = false;
     while (check == false)
-    {
-     
-        if (chessBoard[rNow][cNow] == 0 && chessBoard[rDist][cDist] == 0)
+    {   
+        if(chessBoard[rNow][cNow] == 0){
+             system("clear");
+            print();
+            cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
+            validMove = false;
+            goto label1;
+        }
+        else if (chessBoard[rNow][cNow] == 0 && chessBoard[rDist][cDist] == 0)
         {
             system("clear");
             print();
@@ -307,14 +323,7 @@ label1:
             validMove = false;
             goto label1;
         }
-        else if (rNow == cNow == rDist == cDist)
-        {
-            system("clear");
-            print();
-            cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-            validMove = false;
-            goto label1;
-        }
+
         else if (chessBoard[rNow][cNow] == 0 || chessBoard[rNow][cNow]->getPiecesColour() != playerColor)
         {
             GamePieces *cP = chessBoard[rNow][cNow];
@@ -335,16 +344,14 @@ label1:
             system("clear");
         }
     }
-
-    if (rDist == rNow && cDist == cNow)
+    if (chessBoard[rNow][cNow]->isMoveLegal(rDist, cDist, rNow, cNow, chessBoard) != true)
     {
         system("clear");
         print();
-        cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
         validMove = false;
+        cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
         goto label1;
     }
-
     // makes temp pieces
     GamePieces *currentPiece = chessBoard[rNow][cNow];
     GamePieces *temp;
@@ -389,13 +396,11 @@ bool ChessBoard::isInCheck()
     {
         this->playerColor = 'w';
         this->opponentColor = 'b';
-        cout << "White's Turn";
     }
     else
     {
         this->playerColor = 'b';
         this->opponentColor = 'w';
-        cout << "Black's Turn";
     }
 
     for (int i = 0; i < 8; i++)
@@ -429,48 +434,101 @@ bool ChessBoard::isInCheck()
             }
         }
     }
+  
     cout << endl;
 
     return false; // King is not in check
 }
 
-bool ChessBoard::stalemate()
-{
+//  bool ChessBoard::stalemate(){
 
-    // finds the king and check the squares around it
+    
 
-    return false;
-}
+//     }
+
 
 bool ChessBoard::checkMate()
 {
+    if (isInCheck())
+    {
+       
+        for (int rowCurrent = 0; rowCurrent < 8; ++rowCurrent)
+        {
+            for (int columnCurrent = 0; columnCurrent < 8; ++columnCurrent)
+            {
+                if (chessBoard[rowCurrent][columnCurrent] != 0)
+                {
+                    
+                    if (chessBoard[rowCurrent][columnCurrent]->getPiecesColour() == playerColor)
+                    {
+                        for (int row = 0; row < 8; ++row)
+                        {
+                            for (int col = 0; col < 8; ++col)
+                            {
+                                if (chessBoard[rowCurrent][columnCurrent]->isMoveLegal(row, col, rowCurrent, columnCurrent, chessBoard))
+                                {
+                                   
+                                    GamePieces *tempMove = chessBoard[row][col];
+                                    chessBoard[row][col] = chessBoard[rowCurrent][columnCurrent];
+                                    chessBoard[rowCurrent][columnCurrent] = 0;
 
-    // if king is in check then check for stalemate
-    // checks if any piece can take the piece that has checked the piece
+                                    bool thereIsAMove = isInCheck();
+                              
+                                    chessBoard[rowCurrent][columnCurrent] = chessBoard[row][col];
+                                    chessBoard[row][col] = tempMove;
 
-    // if they both true means that king is checkmated
-    return false;
+                                    if (!thereIsAMove)
+                                    {
+                                        cout << "\033[0;36m||CHECK||\033[0;0m" << endl;
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        cout << endl << "\033[0;36m||YOU LOST CHECKMATE||\033[0;0m" << endl;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
+
 
 void ChessBoard::start()
 {
 
-    // need to change this to while look
     print();
 
-    for (int i = 0; i < 10; i++)
+    bool gameOver = false;
+
+    do
     {
-        if (isInCheck() == true)
+        string Player;
+        if (isWhiteTurn())
         {
-            cout << endl;
-            cout << "!!Check!!" << endl;
-            cout << "Game Over" << endl;
-            break;
+            Player = "White's Turn";
+            cout << Player;
         }
         else
         {
-            makesTheMove();
-            print();
+            Player = "Blacks's Turn";
+            cout << Player;
         }
-    }
+
+        if (checkMate())
+        {
+            gameOver = true;
+            break;
+        }
+
+        makesTheMove();
+        print();
+
+    } while (!gameOver);
 }

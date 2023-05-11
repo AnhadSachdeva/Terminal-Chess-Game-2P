@@ -26,13 +26,22 @@ bool King::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePie
 
             return true;
         }
+        else if (scalarRDest == 1 && scalarCDest == 1)
+        {
+
+            return true;
+        }
     }
     else if (scalarRDest == 0 && scalarCDest == 1 || (scalarRDest == 1 && scalarCDest == 0) && test->getPiecesColour() != ChessBoard[rNow][cNow]->getPiecesColour())
+    {
+        
+        return true;
+    }
+    else if (scalarRDest == 1 && scalarCDest == 1 && test->getPiecesColour() != ChessBoard[rNow][cNow]->getPiecesColour())
     {
 
         return true;
     }
-    else
     {
 
         return false;
