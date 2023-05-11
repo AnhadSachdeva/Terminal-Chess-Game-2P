@@ -177,6 +177,7 @@ void ChessBoard::print()
     }
 }
 
+
 void ChessBoard::flipBoard()
 {
 
@@ -426,24 +427,24 @@ bool ChessBoard::isInCheck()
             }
         }
     }
+  
     cout << endl;
 
     return false; // King is not in check
 }
 
-bool ChessBoard::stalemate()
-{
+//  bool ChessBoard::stalemate(){
 
-    // finds the king and check the squares around it
+    
 
-    return false;
-}
+//     }
+
 
 bool ChessBoard::checkMate()
 {
     if (isInCheck())
     {
-        
+       
         for (int rowCurrent = 0; rowCurrent < 8; ++rowCurrent)
         {
             for (int columnCurrent = 0; columnCurrent < 8; ++columnCurrent)
@@ -471,6 +472,7 @@ bool ChessBoard::checkMate()
 
                                     if (!thereIsAMove)
                                     {
+                                        cout << "\033[0;36m||CHECK||\033[0;0m" << endl;
                                         return false;
                                     }
                                 }
@@ -483,8 +485,6 @@ bool ChessBoard::checkMate()
 
         cout << endl << "\033[0;36m||CHECKMATE||\033[0;0m" << endl;
         return true;
-
-    cout << endl << "\033[0;36m||CHECK||\033[0;0m" << endl;
     }
     else
     {
