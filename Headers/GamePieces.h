@@ -8,7 +8,7 @@
 
 #include "Player.h"
 
-using namespace std;
+
 
 class GamePieces : public Player
 {
