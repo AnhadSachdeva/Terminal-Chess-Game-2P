@@ -307,8 +307,15 @@ label1:
     // checks if the user picked a empty block then prompts the user again
     bool check = false;
     while (check == false)
-    {
-        if (chessBoard[rNow][cNow] == 0 && chessBoard[rDist][cDist] == 0)
+    {   
+        if(chessBoard[rNow][cNow] == 0){
+             system("clear");
+            print();
+            cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
+            validMove = false;
+            goto label1;
+        }
+        else if (chessBoard[rNow][cNow] == 0 && chessBoard[rDist][cDist] == 0)
         {
             system("clear");
             print();
