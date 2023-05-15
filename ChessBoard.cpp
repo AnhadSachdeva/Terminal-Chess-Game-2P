@@ -440,11 +440,11 @@ bool ChessBoard::isInCheck()
     return false; // King is not in check
 }
 
-//  bool ChessBoard::stalemate(){
+ bool ChessBoard::stalemate(){
 
-    
 
-//     }
+
+    }
 
 
 bool ChessBoard::checkMate()
