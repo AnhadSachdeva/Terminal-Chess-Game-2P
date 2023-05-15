@@ -61,7 +61,6 @@ bool Queen::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePi
             return true;
         }
 
-        return true;
     }
 
     return false;
