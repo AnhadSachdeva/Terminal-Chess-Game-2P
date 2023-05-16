@@ -377,11 +377,11 @@ label1:
             }
             else
             {
-                temp = chessBoard[rNow][cNow];
-                chessBoard[rNow][cNow] = chessBoard[rDist][cDist];
-                chessBoard[rDist][cDist] = temp;
-                incrementTurn();
-                flipBoard();
+                    temp = chessBoard[rNow][cNow];
+                    chessBoard[rNow][cNow] = chessBoard[rDist][cDist];
+                    chessBoard[rDist][cDist] = temp;
+                    incrementTurn();
+                    flipBoard();
             }
         }
     }
