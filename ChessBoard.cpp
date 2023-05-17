@@ -177,7 +177,6 @@ void ChessBoard::print()
     }
 }
 
-
 void ChessBoard::flipBoard()
 {
 
@@ -195,13 +194,13 @@ void ChessBoard::flipBoard()
         }
     }
 
-      for (int i = 0; i < 8; i++)
+    for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 4; j++)
         {
             temp = chessBoard[i][j];
-            chessBoard[i][j] = chessBoard[i][7-j];
-            chessBoard[i][7-j] = temp;
+            chessBoard[i][j] = chessBoard[i][7 - j];
+            chessBoard[i][7 - j] = temp;
         }
     }
 }
@@ -228,6 +227,17 @@ void ChessBoard::makesTheMove()
 label1:
     while (validMove == false)
     {
+        string Player;
+        if (isWhiteTurn())
+        {
+            Player = "White's Turn\n";
+            cout << Player;
+        }
+        else
+        {
+            Player = "Blacks's Turn\n";
+            cout << Player;
+        }
 
         cout << "Coordinates Of The Piece You Want To Move: ";
         cin >> initialPiece;
@@ -305,21 +315,22 @@ label1:
         rDist = rDist - 49;
     }
 
-
-
-    if (cDist == cNow && rDist == rNow){
-          system("clear");
+    if (cDist == cNow && rDist == rNow)
+    {
+        system("clear");
         print();
         validMove = false;
         cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
         goto label1;
     }
+
     // checks if the user picked a empty block then prompts the user again
     bool check = false;
     while (check == false)
-    {   
-        if(chessBoard[rNow][cNow] == 0){
-             system("clear");
+    {
+        if (chessBoard[rNow][cNow] == 0)
+        {
+            system("clear");
             print();
             cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
             validMove = false;
@@ -374,26 +385,59 @@ label1:
         // checks if move is legal to make and then makes the move
         if (currentPiece->isMoveLegal(rDist, cDist, rNow, cNow, chessBoard))
         {
-            if (chessBoard[rNow][cNow] != 0 && chessBoard[rDist][cDist] != 0)
+            if (noCheckAfterMove(rDist, cDist, rNow, cNow, chessBoard) != true)
             {
-                if (chessBoard[rNow][cNow]->getPiecesColour() != chessBoard[rDist][cDist]->getPiecesColour())
+                if (chessBoard[rNow][cNow] != 0 && chessBoard[rDist][cDist] != 0)
                 {
+                    if (chessBoard[rNow][cNow]->getPiecesColour() != chessBoard[rDist][cDist]->getPiecesColour())
+                    {
 
-                    chessBoard[rDist][cDist] = currentPiece;
-                    chessBoard[rNow][cNow] = 0;
+                        chessBoard[rDist][cDist] = currentPiece;
+                        chessBoard[rNow][cNow] = 0;
+                        incrementTurn();
+                        flipBoard();
+                    }
+                }
+                else
+                {
+                    temp = chessBoard[rNow][cNow];
+                    chessBoard[rNow][cNow] = chessBoard[rDist][cDist];
+                    chessBoard[rDist][cDist] = temp;
                     incrementTurn();
                     flipBoard();
                 }
             }
             else
             {
-                temp = chessBoard[rNow][cNow];
-                chessBoard[rNow][cNow] = chessBoard[rDist][cDist];
-                chessBoard[rDist][cDist] = temp;
-                incrementTurn();
-                flipBoard();
+                system("clear");
+                print();
+                cout << "\033[0;36mInvalid Move You Will Be In Check\033[0;0m" << endl;
+                validMove = false;
+                goto label1;
             }
         }
+    }
+}
+
+bool ChessBoard::noCheckAfterMove(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
+{
+
+    GamePieces *tempMove = chessBoard[rDest][cDest];
+    chessBoard[rDest][cDest] = chessBoard[rNow][cNow];
+    chessBoard[rNow][cNow] = 0;
+
+    bool thereIsAMove = isInCheck();
+
+    chessBoard[rNow][cNow] = chessBoard[rDest][cDest];
+    chessBoard[rDest][cDest] = tempMove;
+
+    if (thereIsAMove == false)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
     }
 }
 
@@ -444,31 +488,24 @@ bool ChessBoard::isInCheck()
             }
         }
     }
-  
+
     cout << endl;
 
     return false; // King is not in check
 }
 
- bool ChessBoard::stalemate(){
-
-
-
-    }
-
-
 bool ChessBoard::checkMate()
 {
     if (isInCheck())
     {
-       
+
         for (int rowCurrent = 0; rowCurrent < 8; ++rowCurrent)
         {
             for (int columnCurrent = 0; columnCurrent < 8; ++columnCurrent)
             {
                 if (chessBoard[rowCurrent][columnCurrent] != 0)
                 {
-                    
+
                     if (chessBoard[rowCurrent][columnCurrent]->getPiecesColour() == playerColor)
                     {
                         for (int row = 0; row < 8; ++row)
@@ -477,13 +514,13 @@ bool ChessBoard::checkMate()
                             {
                                 if (chessBoard[rowCurrent][columnCurrent]->isMoveLegal(row, col, rowCurrent, columnCurrent, chessBoard))
                                 {
-                                   
+
                                     GamePieces *tempMove = chessBoard[row][col];
                                     chessBoard[row][col] = chessBoard[rowCurrent][columnCurrent];
                                     chessBoard[rowCurrent][columnCurrent] = 0;
 
                                     bool thereIsAMove = isInCheck();
-                              
+
                                     chessBoard[rowCurrent][columnCurrent] = chessBoard[row][col];
                                     chessBoard[row][col] = tempMove;
 
@@ -500,7 +537,8 @@ bool ChessBoard::checkMate()
             }
         }
 
-        cout << endl << "\033[0;36m||YOU LOST CHECKMATE||\033[0;0m" << endl;
+        cout << endl
+             << "\033[0;36m||YOU LOST CHECKMATE||\033[0;0m" << endl;
         return true;
     }
     else
@@ -508,7 +546,6 @@ bool ChessBoard::checkMate()
         return false;
     }
 }
-
 
 void ChessBoard::start()
 {
@@ -519,17 +556,6 @@ void ChessBoard::start()
 
     do
     {
-        string Player;
-        if (isWhiteTurn())
-        {
-            Player = "White's Turn";
-            cout << Player;
-        }
-        else
-        {
-            Player = "Blacks's Turn";
-            cout << Player;
-        }
 
         if (checkMate())
         {
