@@ -194,6 +194,16 @@ void ChessBoard::flipBoard()
             chessBoard[7 - i][j] = temp;
         }
     }
+
+      for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            temp = chessBoard[i][j];
+            chessBoard[i][j] = chessBoard[i][7-j];
+            chessBoard[i][7-j] = temp;
+        }
+    }
 }
 
 void ChessBoard::makesTheMove()
