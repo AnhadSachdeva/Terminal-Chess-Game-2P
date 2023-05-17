@@ -51,7 +51,7 @@ void Player::setupPlayers(){
 
     cout << "-------------------------------------------------" << endl;
 
-       cout << "if you wish to kill the game just enter kill twice" << endl << endl;
+       cout << "if you wish to kill the game just enter kill on both prompts" << endl << endl;
 
     cout << "The game has started" << endl;
 
