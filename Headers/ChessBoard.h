@@ -51,8 +51,6 @@ public:
     //checks if king is in check
     bool isInCheck();
 
-
-    
     bool noCheckAfterMove(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8]);
     //determines who won
     bool checkMate();
