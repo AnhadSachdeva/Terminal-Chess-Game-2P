@@ -241,11 +241,14 @@ label1:
 
         cout << "Coordinates Of The Piece You Want To Move: ";
         cin >> initialPiece;
+        if (initialPiece == "exit" || initialPiece == "Exit")
+        {
+            system("clear");
+            exit(0);
+        }
         cout << "Coordinates Of Where You Want To Move The Piece To: ";
         cin >> destinationPiece;
-
-        // ends the game
-        if (initialPiece == "kill" && destinationPiece == "kill")
+        if (destinationPiece == "exit" || destinationPiece == "Exit")
         {
             system("clear");
             exit(0);
@@ -266,7 +269,7 @@ label1:
                     {
                         system("clear");
                         print();
-                        cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
+                        cout << "\033[0;36mInvalid Move\033[0m" << endl;
                     }
                 }
                 else
@@ -274,7 +277,7 @@ label1:
                     system("clear");
                     print();
 
-                    cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
+                    cout << "\033[0;36mInvalid Move\033[0m" << endl;
                 }
             }
             else
@@ -282,7 +285,7 @@ label1:
                 system("clear");
                 print();
 
-                cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
+                cout << "\033[0;36mInvalid Move\033[0m" << endl;
             }
         }
         else
@@ -290,9 +293,10 @@ label1:
             system("clear");
             print();
 
-            cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
+            cout << "\033[0;36mInvalid Move\033[0m" << endl;
         }
     }
+
     // converts the user input into array coordinates
     cNow = initialPiece[0];
     rNow = initialPiece[1];
@@ -315,67 +319,18 @@ label1:
         rDist = rDist - 49;
     }
 
-    if (cDist == cNow && rDist == rNow)
-    {
-        system("clear");
-        print();
-        validMove = false;
-        cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-        goto label1;
-    }
-
-    // checks if the user picked a empty block then prompts the user again
-    bool check = false;
-    while (check == false)
-    {
-        if (chessBoard[rNow][cNow] == 0)
-        {
-            system("clear");
-            print();
-            cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-            validMove = false;
-            goto label1;
-        }
-        else if (chessBoard[rNow][cNow] == 0 && chessBoard[rDist][cDist] == 0)
-        {
-            system("clear");
-            print();
-            cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-            validMove = false;
-            goto label1;
-        }
-
-        else if (chessBoard[rNow][cNow] == 0 || chessBoard[rNow][cNow]->getPiecesColour() != playerColor)
-        {
-            GamePieces *cP = chessBoard[rNow][cNow];
-            if (cP->isMoveLegal(rDist, cDist, rNow, cNow, chessBoard) != true)
-            {
-                system("clear");
-                print();
-                cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-                validMove = false;
-                goto label1;
-                delete cP;
-            }
-        }
-        //
-        else
-        {
-            check = true;
-            system("clear");
-        }
-    }
-    if (chessBoard[rNow][cNow]->isMoveLegal(rDist, cDist, rNow, cNow, chessBoard) != true)
-    {
-        system("clear");
-        print();
-        validMove = false;
-        cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-        goto label1;
-    }
     // makes temp pieces
     GamePieces *currentPiece = chessBoard[rNow][cNow];
     GamePieces *temp;
+
+    if (currentPiece == 0)
+    {
+        system("clear");
+        print();
+        cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
+        validMove = false;
+        goto label1;
+    }
     printf("\n");
 
     // checks if the player is moving their own piece
@@ -389,13 +344,39 @@ label1:
             {
                 if (chessBoard[rNow][cNow] != 0 && chessBoard[rDist][cDist] != 0)
                 {
-                    if (chessBoard[rNow][cNow]->getPiecesColour() != chessBoard[rDist][cDist]->getPiecesColour())
+
+                    if (chessBoard[rNow][cNow]->getPieces() == 'P')
+                    {
+                        if (rNow == 1 & rDist == 0)
+                        {
+                            if (promotion(rDist, cDist, rNow, cNow, chessBoard) == true)
+                            {
+                                chessBoard[rDist][cDist] = chessBoard[rNow][cNow];
+                                chessBoard[rNow][cNow] = 0;
+                                incrementTurn();
+                                flipBoard();
+                                system("clear");
+                            }
+                        }
+                        else if (chessBoard[rNow][cNow]->getPiecesColour() != chessBoard[rDist][cDist]->getPiecesColour())
+                        {
+
+                            chessBoard[rDist][cDist] = currentPiece;
+                            chessBoard[rNow][cNow] = 0;
+                            incrementTurn();
+                            flipBoard();
+                            system("clear");
+                        }
+                    }
+
+                    else if (chessBoard[rNow][cNow]->getPiecesColour() != chessBoard[rDist][cDist]->getPiecesColour())
                     {
 
                         chessBoard[rDist][cDist] = currentPiece;
                         chessBoard[rNow][cNow] = 0;
                         incrementTurn();
                         flipBoard();
+                        system("clear");
                     }
                 }
                 else
@@ -405,6 +386,7 @@ label1:
                     chessBoard[rDist][cDist] = temp;
                     incrementTurn();
                     flipBoard();
+                    system("clear");
                 }
             }
             else
@@ -416,7 +398,66 @@ label1:
                 goto label1;
             }
         }
+        else
+        {
+            system("clear");
+            print();
+            cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
+            validMove = false;
+            goto label1;
+        }
     }
+    else
+    {
+        system("clear");
+        print();
+        cout << "\033[0;36mInvalid Move Please pick your own piece\033[0;0m" << endl;
+        validMove = false;
+        goto label1;
+    }
+}
+
+bool ChessBoard::promotion(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
+{
+    if (rNow == 1 && rDest == 0)
+    {
+    label2:
+
+        char piece;
+        cout << "Chose a new piece (N,Q,R,B): ";
+        cin >> piece;
+        cout << "this works" << endl;
+        switch (piece)
+        {
+        case 'N':
+            ChessBoard[rNow][cNow] = new Knight(playerColor);
+     
+            return true;
+            break;
+        case 'Q':
+            ChessBoard[rNow][cNow] = new Queen(playerColor);
+            cout << "working" << endl;
+            return true;
+             break;
+        case 'R':
+            ChessBoard[rNow][cNow] = new Rook(playerColor);
+
+            return true;
+            break;
+        case 'B':
+            ChessBoard[rNow][cNow] = new Bishop(playerColor);
+            return true;
+            break;
+
+        default:
+             system("clear");
+            print();
+            cout << "\033[0;36mInvalid Piece\033[0;0m" << endl;
+            goto label2;
+            break;
+        }
+    }
+    return true;
 }
 
 bool ChessBoard::noCheckAfterMove(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])

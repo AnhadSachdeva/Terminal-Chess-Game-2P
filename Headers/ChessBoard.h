@@ -55,6 +55,8 @@ public:
     //determines who won
     bool checkMate();
 
+    bool promotion(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8]);
+
 };
 
 #endif

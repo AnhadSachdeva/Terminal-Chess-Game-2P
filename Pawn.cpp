@@ -20,6 +20,7 @@ bool Pawn::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePie
     // calculate and stores the absolute value of the difference from the destination from current position
     int scalarRDest = rDest - rNow;
     int scalarCDest = abs(cDest - cNow);
+
     // checks if that block is free
     if (test == 0)
     {
@@ -27,14 +28,19 @@ bool Pawn::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePie
         // can make the
         if (scalarRDest == -2 && scalarCDest == 0)
         {
+            if (rNow == 6){
             if (noPieceInBetween(checkRow, checkColoumn, scalarRDest, scalarCDest, rNow, cNow, ChessBoard) == true)
             {
                 return true;
+            }
+            } else {
+                return false;
             }
             // one block at a time
         }
         else if (scalarRDest == -1 && scalarCDest == 0)
         {
+           
             return true;
         }
     }
