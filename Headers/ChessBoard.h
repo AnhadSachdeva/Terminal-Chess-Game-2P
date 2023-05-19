@@ -23,6 +23,16 @@ protected:
     // stores the opponents colour
     char opponentColor;
 
+    int hasKingMovedB;
+    int hasRightRookMovedB;
+    int hasLeftRookMovedB;
+
+
+    int hasKingMovedW;
+    int hasRightRookMovedW;
+    int hasLeftRookMovedW;
+    
+
 public:
     // initialises the pieces on the baord
     ChessBoard();
@@ -57,6 +67,7 @@ public:
 
     bool promotion(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8]);
 
+    bool castling(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8]);
 };
 
 #endif
