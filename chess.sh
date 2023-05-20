@@ -1,4 +1,3 @@
-!/bin/bash
 
 # Run your program here
 make chess
