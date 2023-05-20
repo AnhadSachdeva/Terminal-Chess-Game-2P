@@ -68,6 +68,10 @@ public:
     bool promotion(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8]);
 
     bool castling(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8]);
+
+    bool stalemate(int rKing,int cKing, GamePieces *ChessBoard[8][8]);
+
+    bool ifPieceCanBeTaken(int rNow,int cNow, GamePieces *ChessBoard[8][8]);
 };
 
 #endif
