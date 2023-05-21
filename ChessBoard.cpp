@@ -675,7 +675,6 @@ bool ChessBoard::noCheckAfterMove(int rDest, int cDest, int rNow, int cNow, Game
     }
 }
 
-// this is correct
 bool ChessBoard::stalemate(int rKing, int cKing, GamePieces *ChessBoard[8][8])
 {
     int count = 0;
@@ -807,7 +806,6 @@ bool ChessBoard::castling(int rDest, int cDest, int rNow, int cNow, GamePieces *
     return false;
 }
 
-// this is also correct
 bool ChessBoard::promotion(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
 {
     if (rNow == 1 && rDest == 0)
