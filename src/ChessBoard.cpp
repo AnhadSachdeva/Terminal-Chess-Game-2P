@@ -387,7 +387,7 @@ label1:
                         chessBoard[7][3] = 0;
                         system(clearScreen.c_str());
                         print();
-                        cout << "\033[0;36mInvalid Move you will be in check\033[0;0m" << endl;
+                        cout << "\033[0;36mInvalid Move: King in Check\033[0;0m" << endl;
                         validMove = false;
                         // Go to the while loop to prompt again
                         goto label1;
@@ -448,7 +448,7 @@ label1:
                         chessBoard[7][2] = 0;
                         system(clearScreen.c_str());
                         print();
-                        cout << "\033[0;36mInvalid Move you will be in check\033[0;0m" << endl;
+                        cout << "\033[0;36mInvalid Move: King in Check\033[0;0m" << endl;
                         validMove = false;
                         goto label1;
                     }
@@ -643,7 +643,7 @@ label1:
             {
                 system(clearScreen.c_str());
                 print();
-                cout << "\033[0;36mInvalid Move You Will Be In Check\033[0;0m" << endl;
+                cout << "\033[0;36mInvalid Move: King in Check\033[0;0m" << endl;
                 validMove = false;
                 goto label1;
             }
