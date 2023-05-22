@@ -1,6 +1,8 @@
 #include "../headers/ChessBoard.h"
 #include <cstdlib>
 
+using namespace std;
+
 /*
     This is the implementation file of ChessBoard Class
 */
@@ -111,7 +113,9 @@ void ChessBoard::print()
     char column = 'a';
     char bColumn = 'h';
 
+    cout << " " << endl;
     cout << "To Exit the Game: Enter '\033[1;37mexit\033[0m' " << endl;
+    cout << " " << endl;
 
     for (int i = 0; i < 9; i++)
     {
