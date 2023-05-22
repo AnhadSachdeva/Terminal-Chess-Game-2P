@@ -19,7 +19,7 @@ using namespace std;
 
 int main()
 {
-
+    
     Player initalSetup;
     initalSetup.setupPlayers();
 

@@ -31,6 +31,16 @@ char Player::getPlayerColor()
 void Player::setupPlayers()
 {
 
+// Checks the operating system of the user, and sets clearScreen variable to clear the terminal according to the operating system. "cls" for windows, and "clear" for linux & mac
+#if defined(_WIN32) || defined(_WIN64)
+    string clearScreen = "cls"; // clears the terminal in windows
+#else
+    string clearScreen = "clear"; // clears the terminal in linux & mac
+#endif
+
+    // Clears the terminal
+    system(clearScreen.c_str());
+
     // Prompts the user to enter their name and tells the user what pieces you have been assigned
     string playerName1;
     string playerName2;

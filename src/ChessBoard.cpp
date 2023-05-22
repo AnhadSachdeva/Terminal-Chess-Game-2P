@@ -115,6 +115,7 @@ void ChessBoard::print()
 
     cout << " " << endl;
     cout << "To Exit the Game: Enter '\033[1;37mexit\033[0m' " << endl;
+    cout << "To Restart the Game: Enter '\033[1;37mrestart\033[0m' " << endl;
     cout << " " << endl;
 
     for (int i = 0; i < 9; i++)
@@ -239,7 +240,7 @@ label1:
     while (validMove == false)
     {
         string Player;
-        // Input validation for White's turn
+        // Input validation for White's turn for exiting or restarting the game
         if (isWhiteTurn())
         {
             Player = "\033[1;37mWhite's Turn\033[0m\n";
@@ -247,22 +248,32 @@ label1:
 
             cout << "\033[1;37mCoordinates of The Piece You Want To Move: \033[0m";
             cin >> initialPiece;
-            if (initialPiece == "exit" || initialPiece == "Exit")
+            if (initialPiece == "exit" || initialPiece == "Exit" || initialPiece == "EXIT")
             {
                 system(clearScreen.c_str());
                 exit(0);
                 cout << "Thanks For Playing!" << endl;
+            }
+            if (initialPiece == "restart" || initialPiece == "Restart" || initialPiece == "RESTART")
+            {
+                system(clearScreen.c_str());
+                system("./chess.sh");
             }
             cout << "\033[1;37mCoordinates of Where You Want To Move The Piece To: \033[0m";
             cin >> destinationPiece;
-            if (destinationPiece == "exit" || destinationPiece == "Exit")
+            if (destinationPiece == "exit" || destinationPiece == "Exit" || destinationPiece == "EXIT")
             {
                 system(clearScreen.c_str());
                 exit(0);
                 cout << "Thanks For Playing!" << endl;
             }
+            if (destinationPiece == "restart" || destinationPiece == "Restart" || destinationPiece == "RESTART")
+            {
+                system(clearScreen.c_str());
+                system("./chess.sh");
+            }
         }
-        // Input validation for Green's turn
+        // Input validation for Green's turn for exiting or restarting the game
         else
         {
             Player = "\033[1;32mGreen's Turn\033[0m\n";
@@ -270,19 +281,29 @@ label1:
 
             cout << "\033[1;32mCoordinates of The Piece You Want To Move: \033[0m";
             cin >> initialPiece;
-            if (initialPiece == "exit" || initialPiece == "Exit")
+            if (initialPiece == "exit" || initialPiece == "Exit" || initialPiece == "EXIT")
             {
                 system(clearScreen.c_str());
                 exit(0);
                 cout << "Thanks For Playing!" << endl;
             }
+            if (initialPiece == "restart" || initialPiece == "Restart" || initialPiece == "RESTART")
+            {
+                system(clearScreen.c_str());
+                system("./chess.sh");
+            }
             cout << "\033[1;32mCoordinates of Where You Want To Move The Piece To: \033[0m";
             cin >> destinationPiece;
-            if (destinationPiece == "exit" || destinationPiece == "Exit")
+            if (destinationPiece == "exit" || destinationPiece == "Exit" || destinationPiece == "EXIT")
             {
                 system(clearScreen.c_str());
                 exit(0);
                 cout << "Thanks For Playing!" << endl;
+            }
+            if (destinationPiece == "restart" || destinationPiece == "Restart" || destinationPiece == "RESTART")
+            {
+                system(clearScreen.c_str());
+                system("./chess.sh");
             }
         }
 
@@ -1061,6 +1082,7 @@ void ChessBoard::start()
     {
         if (checkMate())
         {
+            
             gameOver = true;
             break;
         }
