@@ -2,6 +2,8 @@
 
 ChessBoard::ChessBoard()
 {
+
+
     // even for white, odd for black
     this->turn = 0;
 
