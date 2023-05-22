@@ -1,46 +1,67 @@
-#include "Headers/Pawn.h"
+/*
+    This is the Pawn class implementation file.
+    This is where the Pawn class methods are defined.
+*/
 
+#include "../headers/Pawn.h"
+
+// Default constructor of Pawn Class
+Pawn::Pawn()
+{
+}
+
+// Constructor of Pawn Class with parameter Colour
 Pawn::Pawn(char Colour) : GamePieces(Colour)
 {
 }
 
+// Method to return the piece code which is "P"
 char Pawn::getPieces()
 {
     return 'P';
 }
 
+// Method to check if the move is legal for the Pawn. It can only move one square forward
 bool Pawn::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
 {
     // makes a test piece on the destination we want to move the piece on
     GamePieces *test = ChessBoard[rDest][cDest];
 
+    // checkRow is the difference from the row destination from current row position
     int checkRow = rDest - rNow;
+
+    // checkColoumn is the difference from the coloumn destination from current coloumn position
     int checkColoumn = cDest - cNow;
 
-    // calculate and stores the absolute value of the difference from the destination from current position
+    // scalarRDest is the value of the row difference between the destination and the current row position
     int scalarRDest = rDest - rNow;
+
+    // scalarCDest is the absolute value of the coloumn difference between the destination and the current column position
     int scalarCDest = abs(cDest - cNow);
 
     // checks if that block is free
     if (test == 0)
     {
-        // moves 2 blocks at a time
-        // can make the
+        // It moves 2 blocks at first time
         if (scalarRDest == -2 && scalarCDest == 0)
         {
-            if (rNow == 6){
-            if (noPieceInBetween(checkRow, checkColoumn, scalarRDest, scalarCDest, rNow, cNow, ChessBoard) == true)
+            if (rNow == 6)
             {
-                return true;
+
+                if (noPieceInBetween(checkRow, checkColoumn, scalarRDest, scalarCDest, rNow, cNow, ChessBoard) == true)
+                {
+                    return true;
+                }
             }
-            } else {
+            else
+            {
                 return false;
             }
-            // one block at a time
+            // It moves 1 block at at a time
         }
         else if (scalarRDest == -1 && scalarCDest == 0)
         {
-           
+
             return true;
         }
     }
@@ -56,6 +77,7 @@ bool Pawn::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePie
     return false;
 }
 
+// Method to check if there is no piece in between the destination and the current position
 bool Pawn::noPieceInBetween(int checkRow, int checkColoumn, int scalarRDest, int scalarCDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
 {
 
