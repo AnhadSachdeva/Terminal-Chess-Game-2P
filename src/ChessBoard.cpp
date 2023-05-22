@@ -1,8 +1,6 @@
 #include "../headers/ChessBoard.h"
 #include <cstdlib>
 
-using namespace std;
-
 /*
     This is the implementation file of ChessBoard Class
 */
@@ -112,6 +110,8 @@ void ChessBoard::print()
     int bRow = 0;
     char column = 'a';
     char bColumn = 'h';
+
+    cout << "To Exit the Game: Enter '\033[1;37mexit\033[0m' " << endl;
 
     for (int i = 0; i < 9; i++)
     {
@@ -235,6 +235,7 @@ label1:
     while (validMove == false)
     {
         string Player;
+        // Input validation for White's turn
         if (isWhiteTurn())
         {
             Player = "\033[1;37mWhite's Turn\033[0m\n";
@@ -246,6 +247,7 @@ label1:
             {
                 system(clearScreen.c_str());
                 exit(0);
+                cout << "Thanks For Playing!" << endl;
             }
             cout << "\033[1;37mCoordinates of Where You Want To Move The Piece To: \033[0m";
             cin >> destinationPiece;
@@ -253,8 +255,10 @@ label1:
             {
                 system(clearScreen.c_str());
                 exit(0);
+                cout << "Thanks For Playing!" << endl;
             }
         }
+        // Input validation for Green's turn
         else
         {
             Player = "\033[1;32mGreen's Turn\033[0m\n";
@@ -266,6 +270,7 @@ label1:
             {
                 system(clearScreen.c_str());
                 exit(0);
+                cout << "Thanks For Playing!" << endl;
             }
             cout << "\033[1;32mCoordinates of Where You Want To Move The Piece To: \033[0m";
             cin >> destinationPiece;
@@ -273,6 +278,7 @@ label1:
             {
                 system(clearScreen.c_str());
                 exit(0);
+                cout << "Thanks For Playing!" << endl;
             }
         }
 

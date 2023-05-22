@@ -61,10 +61,5 @@ void Player::setupPlayers()
          << " is playing as \033[1;32mGREEN\033[0m" << endl;
 
     cout << "-------------------------------------------------" << endl;
-
-    cout << "To Exit the Game: Enter '\033[1;37mexit\033[0m' " << endl
-         << endl;
-
     cout << "--------------The Game Has Started---------------" << endl;
-    cout << " " << endl;
 }
