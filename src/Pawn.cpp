@@ -24,7 +24,7 @@ char Pawn::getPieces()
 // Method to check if the move is legal for the Pawn. It can only move one square forward
 bool Pawn::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
 {
-    // makes a test piece on the destination we want to move the piece on
+    // Makes a test piece on the destination we want to move the piece on
     GamePieces *test = ChessBoard[rDest][cDest];
 
     // checkRow is the difference from the row destination from current row position
@@ -39,7 +39,7 @@ bool Pawn::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePie
     // scalarCDest is the absolute value of the coloumn difference between the destination and the current column position
     int scalarCDest = abs(cDest - cNow);
 
-    // checks if that block is free
+    // Checks if that block is free
     if (test == 0)
     {
         // It moves 2 blocks at first time

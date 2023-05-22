@@ -5,12 +5,6 @@ handling invalid moves while in check, promotion, castling, and stalemate.
 For instance, if a player is in check, they can only move the pieces 
 that prevent them from remaining in check.
 
-
-Note: If you are using macOS, the system will automatically clear the 
-terminal screen. However, if you are on Windows, you need to change 
-the "clear" command to "cls" for proper screen clearing.
-
-
 Piece Notation:
 
 P - Pawn
@@ -42,9 +36,7 @@ Areas for further improvement:
 
 
 To run the game, simply execute the "./chess.sh" command, which will compile 
-and run the game for you. Additionally, if you are working with GitHub, you 
-can use the "./git.sh" script to perform commands that add, commit, and push 
-changes to your branch automatically.
+and run the game for you.
 
 Thank you once again for trying out this game. I want to note that this was 
 my first coding project ever. While I understand that this may not be the most 

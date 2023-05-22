@@ -1,8 +1,18 @@
 #include "../headers/ChessBoard.h"
+#include <cstdlib>
+
+using namespace std;
 
 /*
     This is the implementation file of ChessBoard Class
 */
+
+// Checks the operating system of the user, and sets clearScreen variable to clear the terminal according to the operating system. "cls" for windows, and "clear" for linux & mac
+#if defined(_WIN32) || defined(_WIN64)
+string clearScreen = "cls"; // clears the terminal in windows
+#else
+string clearScreen = "clear"; // clears the terminal in linux & mac
+#endif
 
 // Default constructor of ChessBoard Class
 ChessBoard::ChessBoard()
@@ -11,7 +21,7 @@ ChessBoard::ChessBoard()
     // Is set to Even for White's turn, and Odd for black's turn
     this->turn = 0;
 
-    // keeps track if the king and rook have moved
+    // Keeps track if the king or rook have moved, If they have moved, then castling is not allowed
     this->hasKingMovedB = 0;
     this->hasRightRookMovedB = 0;
     this->hasLeftRookMovedB = 0;
@@ -234,14 +244,14 @@ label1:
             cin >> initialPiece;
             if (initialPiece == "exit" || initialPiece == "Exit")
             {
-                system("clear");
+                system(clearScreen.c_str());
                 exit(0);
             }
             cout << "\033[1;37mCoordinates of Where You Want To Move The Piece To: \033[0m";
             cin >> destinationPiece;
             if (destinationPiece == "exit" || destinationPiece == "Exit")
             {
-                system("clear");
+                system(clearScreen.c_str());
                 exit(0);
             }
         }
@@ -254,14 +264,14 @@ label1:
             cin >> initialPiece;
             if (initialPiece == "exit" || initialPiece == "Exit")
             {
-                system("clear");
+                system(clearScreen.c_str());
                 exit(0);
             }
             cout << "\033[1;32mCoordinates of Where You Want To Move The Piece To: \033[0m";
             cin >> destinationPiece;
             if (destinationPiece == "exit" || destinationPiece == "Exit")
             {
-                system("clear");
+                system(clearScreen.c_str());
                 exit(0);
             }
         }
@@ -279,14 +289,14 @@ label1:
                     }
                     else
                     {
-                        system("clear");
+                        system(clearScreen.c_str());
                         print();
                         cout << "\033[0;36mInvalid Move\033[0m" << endl;
                     }
                 }
                 else
                 {
-                    system("clear");
+                    system(clearScreen.c_str());
                     print();
 
                     cout << "\033[0;36mInvalid Move\033[0m" << endl;
@@ -294,7 +304,7 @@ label1:
             }
             else
             {
-                system("clear");
+                system(clearScreen.c_str());
                 print();
 
                 cout << "\033[0;36mInvalid Move\033[0m" << endl;
@@ -302,7 +312,7 @@ label1:
         }
         else
         {
-            system("clear");
+            system(clearScreen.c_str());
             print();
 
             cout << "\033[0;36mInvalid Move\033[0m" << endl;
@@ -338,7 +348,7 @@ label1:
 
     if (currentPiece == 0)
     {
-        system("clear");
+        system(clearScreen.c_str());
         print();
         cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
         validMove = false;
@@ -375,7 +385,7 @@ label1:
                         chessBoard[7][2] = 0;
                         chessBoard[7][0] = chessBoard[7][3];
                         chessBoard[7][3] = 0;
-                        system("clear");
+                        system(clearScreen.c_str());
                         print();
                         cout << "\033[0;36mInvalid Move you will be in check\033[0;0m" << endl;
                         validMove = false;
@@ -387,7 +397,7 @@ label1:
                         // If the king is not in Check, then the move is Valid
                         incrementTurn();
                         flipBoard();
-                        system("clear");
+                        system(clearScreen.c_str());
                     }
                 }
                 else if (rDist == 7 && cDist == 6)
@@ -404,7 +414,7 @@ label1:
                         chessBoard[7][6] = 0;
                         chessBoard[7][7] = chessBoard[7][5];
                         chessBoard[7][5] = 0;
-                        system("clear");
+                        system(clearScreen.c_str());
                         print();
                         cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
                         validMove = false;
@@ -414,7 +424,7 @@ label1:
                     {
                         incrementTurn();
                         flipBoard();
-                        system("clear");
+                        system(clearScreen.c_str());
                     }
                 }
             }
@@ -436,7 +446,7 @@ label1:
                         chessBoard[7][1] = 0;
                         chessBoard[7][0] = chessBoard[7][2];
                         chessBoard[7][2] = 0;
-                        system("clear");
+                        system(clearScreen.c_str());
                         print();
                         cout << "\033[0;36mInvalid Move you will be in check\033[0;0m" << endl;
                         validMove = false;
@@ -446,7 +456,7 @@ label1:
                     {
                         incrementTurn();
                         flipBoard();
-                        system("clear");
+                        system(clearScreen.c_str());
                     }
                 }
                 else if (rDist == 7 && cDist == 5)
@@ -463,7 +473,7 @@ label1:
                         chessBoard[7][5] = 0;
                         chessBoard[7][7] = chessBoard[7][4];
                         chessBoard[7][4] = 0;
-                        system("clear");
+                        system(clearScreen.c_str());
                         print();
                         cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
                         validMove = false;
@@ -473,7 +483,7 @@ label1:
                     {
                         incrementTurn();
                         flipBoard();
-                        system("clear");
+                        system(clearScreen.c_str());
                     }
                 }
             }
@@ -498,7 +508,7 @@ label1:
                                 chessBoard[rNow][cNow] = 0;
                                 incrementTurn();
                                 flipBoard();
-                                system("clear");
+                                system(clearScreen.c_str());
                             }
                             else
                             {
@@ -566,7 +576,7 @@ label1:
                             chessBoard[rNow][cNow] = 0;
                             incrementTurn();
                             flipBoard();
-                            system("clear");
+                            system(clearScreen.c_str());
                         }
                         else
                         {
@@ -631,7 +641,7 @@ label1:
             }
             else
             {
-                system("clear");
+                system(clearScreen.c_str());
                 print();
                 cout << "\033[0;36mInvalid Move You Will Be In Check\033[0;0m" << endl;
                 validMove = false;
@@ -640,7 +650,7 @@ label1:
         }
         else
         {
-            system("clear");
+            system(clearScreen.c_str());
             print();
             cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
             validMove = false;
@@ -649,13 +659,13 @@ label1:
     }
     else
     {
-        system("clear");
+        system(clearScreen.c_str());
         print();
         cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
         validMove = false;
         goto label1;
     }
-    system("clear");
+    system(clearScreen.c_str());
 }
 
 void ChessBoard::flipBoard()
@@ -946,7 +956,7 @@ bool ChessBoard::promotion(int rDest, int cDest, int rNow, int cNow, GamePieces 
             break;
 
         default:
-            system("clear");
+            system(clearScreen.c_str());
             print();
             cout << "\033[0;36mInvalid Piece\033[0;0m" << endl;
             goto label2;
@@ -959,9 +969,10 @@ bool ChessBoard::promotion(int rDest, int cDest, int rNow, int cNow, GamePieces 
 // Checks if the Castling of the King and Rooks is possible
 bool ChessBoard::castling(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
 {
+    // Checks if Castling is possible for White Player
     if (isWhiteTurn() == true)
     {
-        // to the right
+        // Checks if the King and right Rook can Castle
         if (rNow == 7 && cNow == 4)
         {
             if (rNow == 7 && cNow == 4 && rDest == 7 && cDest == 6)
@@ -976,7 +987,7 @@ bool ChessBoard::castling(int rDest, int cDest, int rNow, int cNow, GamePieces *
             }
         }
 
-        // to the left
+        // Checks if the King and left Rook can Castle
         if (rNow == 7 && cNow == 4)
         {
             if (rNow == 7 && cNow == 4 && rDest == 7 && cDest == 2)
@@ -992,7 +1003,7 @@ bool ChessBoard::castling(int rDest, int cDest, int rNow, int cNow, GamePieces *
             }
         }
     }
-    // does the same thing for black
+    // It repeats the same process for the Green Player
     else
     {
 
@@ -1025,7 +1036,7 @@ bool ChessBoard::castling(int rDest, int cDest, int rNow, int cNow, GamePieces *
             }
         }
     }
-    // return false
+
     return false;
 }
 
