@@ -24,7 +24,7 @@ char Queen::getPieces()
 // Method to check if the move is legal for the Queen. It can only move in a straight line or diagonal
 bool Queen::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
 {
-    // makes a test piece on the destination we want to move the piece on
+    // Makes a test piece on the destination we want to move the piece on
     GamePieces *test = ChessBoard[rDest][cDest];
 
     // checkRow is the row difference between the row destination and the current row position
@@ -44,24 +44,25 @@ bool Queen::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePi
 
         if (scalarRDest == 0 || scalarCDest == 0)
         {
-            // rook
+            // Checks if there is no Piece in between straight line, similar to Rook's Move
             if (noPieceInBetweenRook(checkRow, checkColoumn, scalarRDest, scalarCDest, rNow, cNow, ChessBoard) == true)
             {
                 return true;
             }
-            // check there is no piecee in between when the rook moves up
+
         }
         else if (scalarRDest == scalarCDest)
         {
 
-            // bishop
-            //  check there is no piecee in between to the left diagonal
+            //  Chceks if there is no Piece in between diagonal line, similar to Bishop's Move
             if (noPieceInBetweenBish(checkRow, checkColoumn, scalarRDest, scalarCDest, rNow, cNow, ChessBoard) == true)
             {
                 return true;
             }
         }
     }
+
+    // Checks if the Destination is Not Empty and the Piece on the Destination is not the same Colour as the Piece on the Current Position
     else if (scalarRDest == 0 || scalarCDest == 0 && test->getPiecesColour() != ChessBoard[rNow][cNow]->getPiecesColour())
     {
 

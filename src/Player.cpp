@@ -8,7 +8,7 @@ Player::Player()
 // Constructor of Player Class with parameter Name and Color
 Player::Player(string Name, char Color)
 {
-    // sets up the player name and color
+    // Sets the Player's Name and Color
     this->name = Name;
     this->color = Color;
 }
@@ -16,14 +16,14 @@ Player::Player(string Name, char Color)
 // Method to return the player name
 string Player::getPlayerName()
 {
-    // returns the plaeyrs name
+    // Returns the player's Name
     return this->name;
 }
 
-// Method to return the player color
+// Method to return the player Color
 char Player::getPlayerColor()
 {
-    // returns the plaeyrs colour
+    // Returns the player's colour
     return this->color;
 }
 

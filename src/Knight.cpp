@@ -24,7 +24,7 @@ char Knight::getPieces()
 bool Knight::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
 {
 
-    // makes a test piece on the destination we want to move the piece on
+    // Makes a test piece on the destination we want to move the piece on
     GamePieces *test = ChessBoard[rDest][cDest];
 
     // scalarRDest is the absolute value of the row difference between the destination and the current row position

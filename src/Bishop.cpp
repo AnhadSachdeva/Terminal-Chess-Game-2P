@@ -25,7 +25,7 @@ char Bishop::getPieces()
 bool Bishop::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
 {
 
-    // makes a test piece on the destination we want to move the piece on
+    // Makes a Test Piece on the Destination that we Want to Move the Piece On
     GamePieces *test = ChessBoard[rDest][cDest];
 
     // checkRow is the row difference between the destination and the current row position
@@ -45,7 +45,7 @@ bool Bishop::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GameP
 
         if (scalarRDest == scalarCDest)
         {
-            // check there is no piecee in between to the left diagonal
+            // Checks if there is no piecee in between to the left diagonal
             if (noPieceInBetween(checkRow, checkColoumn, scalarRDest, scalarCDest, rNow, cNow, ChessBoard) == true)
             {
                 return true;
@@ -70,7 +70,7 @@ bool Bishop::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GameP
 // Method to check if there is no piece in between the Bishop's move.
 bool Bishop::noPieceInBetween(int checkRow, int checkColoumn, int scalarRDest, int scalarCDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
 {
-
+    // Checks if there is no piecee in between to the up-left diagonal
     if (checkRow < 0 && checkColoumn < 0)
     {
         for (int i = 1; i < scalarRDest; i++)
@@ -81,7 +81,7 @@ bool Bishop::noPieceInBetween(int checkRow, int checkColoumn, int scalarRDest, i
             }
         }
     }
-    // check there is no piecee in between to the right diagonal
+    // Checks if there is no piecee in between to the up-right diagonal
     if (checkRow < 0 && checkColoumn > 0)
     {
         for (int i = 1; i < scalarRDest; i++)
@@ -92,7 +92,7 @@ bool Bishop::noPieceInBetween(int checkRow, int checkColoumn, int scalarRDest, i
             }
         }
     }
-    // check there is no piecee in between to the bottom-left diagonal
+    // Checks if there is no piecee in between to the bottom-left diagonal
 
     if (checkRow > 0 && checkColoumn > 0)
     {
@@ -104,7 +104,7 @@ bool Bishop::noPieceInBetween(int checkRow, int checkColoumn, int scalarRDest, i
             }
         }
     }
-    // check there is no piecee in between to the bottom-right diagonal
+    // Checks if there is no piecee in between to the bottom-right diagonal
 
     if (checkRow > 0 && checkColoumn < 0)
     {

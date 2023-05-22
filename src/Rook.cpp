@@ -39,6 +39,7 @@ bool Rook::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePie
     // scalarCDest is the absolute value of the coloumn difference between the coloumn destination and the current coloumn position
     int scalarCDest = abs(cDest - cNow);
 
+    // Checks if the destination is empty
     if (test == 0)
     {
 

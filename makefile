@@ -1,13 +1,13 @@
-CC = g++
 
+CC = g++ # Compiler Type
 
-SRC_DIR = ./src
-SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
+SRC_DIR = ./src # Directory of the .cpp files
+SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp) # All .cpp files in SRC_DIR
 
-all: chess
+all: chess # Default compiled file
 
-chess: $(SRC_FILES)
-	$(CC) -o $@ $^
+chess: $(SRC_FILES) #Compiles all .cpp files in SRC_FILES, and outputs to chess
+	$(CC) -o $@ $^ 
 
-clean:
+clean: # Removes chess
 	rm -f chess
