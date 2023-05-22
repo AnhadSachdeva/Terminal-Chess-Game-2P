@@ -1,3 +1,9 @@
+/*
+    This is the header file of Bishop Class
+    Bishop class is used to create a Bishop object.
+    It is derived from the GamePieces class.
+*/
+
 #ifndef BISHOP_H
 #define BISHOP_H
 

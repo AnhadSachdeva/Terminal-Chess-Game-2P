@@ -1,3 +1,9 @@
+/*
+    This is the header file of Knight Class
+    Knight class is used to create a Kight object.
+    It is derived from the GamePieces class.
+*/
+
 #ifndef KNIGHT_H
 #define KNIGHT_H
 
