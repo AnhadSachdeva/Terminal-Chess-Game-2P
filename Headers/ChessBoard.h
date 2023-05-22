@@ -23,6 +23,16 @@ protected:
     // stores the opponents colour
     char opponentColor;
 
+    int hasKingMovedB;
+    int hasRightRookMovedB;
+    int hasLeftRookMovedB;
+
+
+    int hasKingMovedW;
+    int hasRightRookMovedW;
+    int hasLeftRookMovedW;
+    
+
 public:
     // initialises the pieces on the baord
     ChessBoard();
@@ -55,6 +65,13 @@ public:
     //determines who won
     bool checkMate();
 
+    bool promotion(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8]);
+
+    bool castling(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8]);
+
+    bool stalemate(int rKing,int cKing, GamePieces *ChessBoard[8][8]);
+
+    bool ifPieceCanBeTaken(int rNow,int cNow, GamePieces *ChessBoard[8][8]);
 };
 
 #endif

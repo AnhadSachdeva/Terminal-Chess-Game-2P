@@ -5,6 +5,15 @@ ChessBoard::ChessBoard()
     // even for white, odd for black
     this->turn = 0;
 
+    // keeps track if the king and rook have moved
+    this->hasKingMovedB = 0;
+    this->hasRightRookMovedB = 0;
+    this->hasLeftRookMovedB = 0;
+
+    this->hasKingMovedW = 0;
+    this->hasRightRookMovedW = 0;
+    this->hasLeftRookMovedW = 0;
+
     // intialises the board to all zeros
     for (int i = 0; i < 8; i++)
     {
@@ -222,7 +231,6 @@ void ChessBoard::makesTheMove()
     string initialPiece, destinationPiece;
 
     // takes user input
-
     bool validMove;
 label1:
     while (validMove == false)
@@ -241,11 +249,14 @@ label1:
 
         cout << "Coordinates Of The Piece You Want To Move: ";
         cin >> initialPiece;
+        if (initialPiece == "exit" || initialPiece == "Exit")
+        {
+            system("clear");
+            exit(0);
+        }
         cout << "Coordinates Of Where You Want To Move The Piece To: ";
         cin >> destinationPiece;
-
-        // ends the game
-        if (initialPiece == "kill" && destinationPiece == "kill")
+        if (destinationPiece == "exit" || destinationPiece == "Exit")
         {
             system("clear");
             exit(0);
@@ -266,7 +277,7 @@ label1:
                     {
                         system("clear");
                         print();
-                        cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
+                        cout << "\033[0;36mInvalid Move\033[0m" << endl;
                     }
                 }
                 else
@@ -274,7 +285,7 @@ label1:
                     system("clear");
                     print();
 
-                    cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
+                    cout << "\033[0;36mInvalid Move\033[0m" << endl;
                 }
             }
             else
@@ -282,7 +293,7 @@ label1:
                 system("clear");
                 print();
 
-                cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
+                cout << "\033[0;36mInvalid Move\033[0m" << endl;
             }
         }
         else
@@ -290,9 +301,10 @@ label1:
             system("clear");
             print();
 
-            cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
+            cout << "\033[0;36mInvalid Move\033[0m" << endl;
         }
     }
+
     // converts the user input into array coordinates
     cNow = initialPiece[0];
     rNow = initialPiece[1];
@@ -315,75 +327,153 @@ label1:
         rDist = rDist - 49;
     }
 
-    if (cDist == cNow && rDist == rNow)
-    {
-        system("clear");
-        print();
-        validMove = false;
-        cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-        goto label1;
-    }
-
-    // checks if the user picked a empty block then prompts the user again
-    bool check = false;
-    while (check == false)
-    {
-        if (chessBoard[rNow][cNow] == 0)
-        {
-            system("clear");
-            print();
-            cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-            validMove = false;
-            goto label1;
-        }
-        else if (chessBoard[rNow][cNow] == 0 && chessBoard[rDist][cDist] == 0)
-        {
-            system("clear");
-            print();
-            cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-            validMove = false;
-            goto label1;
-        }
-
-        else if (chessBoard[rNow][cNow] == 0 || chessBoard[rNow][cNow]->getPiecesColour() != playerColor)
-        {
-            GamePieces *cP = chessBoard[rNow][cNow];
-            if (cP->isMoveLegal(rDist, cDist, rNow, cNow, chessBoard) != true)
-            {
-                system("clear");
-                print();
-                cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-                validMove = false;
-                goto label1;
-                delete cP;
-            }
-        }
-        //
-        else
-        {
-            check = true;
-            system("clear");
-        }
-    }
-    if (chessBoard[rNow][cNow]->isMoveLegal(rDist, cDist, rNow, cNow, chessBoard) != true)
-    {
-        system("clear");
-        print();
-        validMove = false;
-        cout << "\033[0;36mInvalid Move Please Try Again\033[0m" << endl;
-        goto label1;
-    }
     // makes temp pieces
     GamePieces *currentPiece = chessBoard[rNow][cNow];
     GamePieces *temp;
-    printf("\n");
 
+    if (currentPiece == 0)
+    {
+        system("clear");
+        print();
+        cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
+        validMove = false;
+        goto label1;
+    }
+    printf("\n");
     // checks if the player is moving their own piece
 
     if (playerColor == currentPiece->getPiecesColour())
     {
+        // castling
+        if (castling(rDist, cDist, rNow, cNow, chessBoard) == true)
+        {
+            // white and black have different castling algo
+            if (isWhiteTurn() == true)
+            {
+                // to the left
+                if (rDist == 7 && cDist == 2)
+                {
+                    // change king location
+                    chessBoard[7][2] = chessBoard[rNow][cNow];
+                    chessBoard[rNow][cNow] = 0;
+                    // change rook location
+                    chessBoard[7][3] = chessBoard[7][0];
+                    chessBoard[7][0] = 0;
+                    // check if king is in check
+                    bool isKingInCheck = isInCheck();
+                    if (isKingInCheck == true)
+                    {
+                        // switch the places back
+                        chessBoard[rNow][cNow] = chessBoard[7][2];
+                        chessBoard[7][2] = 0;
+                        chessBoard[7][0] = chessBoard[7][3];
+                        chessBoard[7][3] = 0;
+                        system("clear");
+                        print();
+                        cout << "\033[0;36mInvalid Move you will be in check\033[0;0m" << endl;
+                        validMove = false;
+                        // go to the while loop to prompt again
+                        goto label1;
+                    }
+                    else
+                    {
+                        // if not in check then valid
+                        incrementTurn();
+                        flipBoard();
+                        system("clear");
+                    }
+                }
+                else if (rDist == 7 && cDist == 6)
+                {
+                    cout << "working" << endl;
+                    chessBoard[7][6] = chessBoard[rNow][cNow];
+                    chessBoard[rNow][cNow] = 0;
+                    chessBoard[7][5] = chessBoard[7][7];
+                    chessBoard[7][7] = 0;
+                    bool isKingInCheck = isInCheck();
+                    if (isKingInCheck == true)
+                    {
+                        chessBoard[rNow][cNow] = chessBoard[7][6];
+                        chessBoard[7][6] = 0;
+                        chessBoard[7][7] = chessBoard[7][5];
+                        chessBoard[7][5] = 0;
+                        system("clear");
+                        print();
+                        cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
+                        validMove = false;
+                        goto label1;
+                    }
+                    else
+                    {
+                        incrementTurn();
+                        flipBoard();
+                        system("clear");
+                    }
+                }
+            }
+            // castling for black
+            else
+            {
+
+                if (rDist == 7 && cDist == 1)
+                {
+
+                    chessBoard[7][1] = chessBoard[rNow][cNow];
+                    chessBoard[rNow][cNow] = 0;
+                    chessBoard[7][2] = chessBoard[7][0];
+                    chessBoard[7][0] = 0;
+                    bool isKingInCheck = isInCheck();
+                    if (isKingInCheck == true)
+                    {
+                        chessBoard[rNow][cNow] = chessBoard[7][1];
+                        chessBoard[7][1] = 0;
+                        chessBoard[7][0] = chessBoard[7][2];
+                        chessBoard[7][2] = 0;
+                        system("clear");
+                        print();
+                        cout << "\033[0;36mInvalid Move you will be in check\033[0;0m" << endl;
+                        validMove = false;
+                        goto label1;
+                    }
+                    else
+                    {
+                        incrementTurn();
+                        flipBoard();
+                        system("clear");
+                    }
+                }
+                else if (rDist == 7 && cDist == 5)
+                {
+
+                    chessBoard[7][5] = chessBoard[rNow][cNow];
+                    chessBoard[rNow][cNow] = 0;
+                    chessBoard[7][4] = chessBoard[7][7];
+                    chessBoard[7][7] = 0;
+                    bool isKingInCheck = isInCheck();
+                    if (isKingInCheck == true)
+                    {
+                        chessBoard[rNow][cNow] = chessBoard[7][5];
+                        chessBoard[7][5] = 0;
+                        chessBoard[7][7] = chessBoard[7][4];
+                        chessBoard[7][4] = 0;
+                        system("clear");
+                        print();
+                        cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
+                        validMove = false;
+                        goto label1;
+                    }
+                    else
+                    {
+                        incrementTurn();
+                        flipBoard();
+                        system("clear");
+                    }
+                }
+            }
+        }
+
         // checks if move is legal to make and then makes the move
-        if (currentPiece->isMoveLegal(rDist, cDist, rNow, cNow, chessBoard))
+        else if (currentPiece->isMoveLegal(rDist, cDist, rNow, cNow, chessBoard))
         {
             if (noCheckAfterMove(rDist, cDist, rNow, cNow, chessBoard) != true)
             {
@@ -392,19 +482,146 @@ label1:
                     if (chessBoard[rNow][cNow]->getPiecesColour() != chessBoard[rDist][cDist]->getPiecesColour())
                     {
 
-                        chessBoard[rDist][cDist] = currentPiece;
-                        chessBoard[rNow][cNow] = 0;
-                        incrementTurn();
-                        flipBoard();
+                        // promotion
+                        if (chessBoard[rNow][cNow]->getPieces() == 'P')
+                        {
+                            if (promotion(rDist, cDist, rNow, cNow, chessBoard) == true)
+                            {
+                                chessBoard[rDist][cDist] = chessBoard[rNow][cNow];
+                                chessBoard[rNow][cNow] = 0;
+                                incrementTurn();
+                                flipBoard();
+                                system("clear");
+                            }
+                            else
+                            {
+                                chessBoard[rDist][cDist] = currentPiece;
+                                chessBoard[rNow][cNow] = 0;
+                                incrementTurn();
+                                flipBoard();
+                            }
+                        }
+                        else
+                        {
+                            // keeps track if king has moved or not
+                            if (chessBoard[rNow][cNow]->getPieces() == 'K')
+                            {
+                                if (isWhiteTurn() == true)
+                                {
+                                    this->hasKingMovedW++;
+                                }
+                                else
+                                {
+                                    this->hasKingMovedB++;
+                                }
+                            }
+
+                            // keeps track if left Rook has moved or not
+
+                            if (rNow == 7 && cNow == 0 && chessBoard[rNow][cNow]->getPieces() == 'R')
+                            {
+                                if (isWhiteTurn() == true)
+                                {
+
+                                    this->hasLeftRookMovedW++;
+                                }
+                                else
+                                {
+                                    this->hasLeftRookMovedB++;
+                                }
+                            }
+
+                            // keeps track if Right Rook has moved or not
+
+                            if (rNow == 7 && cNow == 7 && chessBoard[rNow][cNow]->getPieces() == 'R')
+                            {
+                                if (isWhiteTurn() == true)
+                                {
+                                    this->hasRightRookMovedW++;
+                                }
+                                else
+                                {
+                                    this->hasRightRookMovedB++;
+                                }
+                            }
+                            chessBoard[rDist][cDist] = currentPiece;
+                            chessBoard[rNow][cNow] = 0;
+                            incrementTurn();
+                            flipBoard();
+                        }
                     }
                 }
                 else
                 {
-                    temp = chessBoard[rNow][cNow];
-                    chessBoard[rNow][cNow] = chessBoard[rDist][cDist];
-                    chessBoard[rDist][cDist] = temp;
-                    incrementTurn();
-                    flipBoard();
+                    if (chessBoard[rNow][cNow]->getPieces() == 'P')
+                    {
+                        if (promotion(rDist, cDist, rNow, cNow, chessBoard) == true)
+                        {
+                            chessBoard[rDist][cDist] = chessBoard[rNow][cNow];
+                            chessBoard[rNow][cNow] = 0;
+                            incrementTurn();
+                            flipBoard();
+                            system("clear");
+                        }
+                        else
+                        {
+                            temp = chessBoard[rNow][cNow];
+                            chessBoard[rNow][cNow] = chessBoard[rDist][cDist];
+                            chessBoard[rDist][cDist] = temp;
+                            incrementTurn();
+                            flipBoard();
+                        }
+                    }
+                    else
+                    {
+
+                        if (chessBoard[rNow][cNow]->getPieces() == 'K')
+                        {
+                            if (isWhiteTurn() == true)
+                            {
+                                this->hasKingMovedW++;
+                            }
+                            else
+                            {
+                                this->hasKingMovedB++;
+                            }
+                        }
+
+                        // keeps track if left Rook has moved or not
+
+                        if (rNow == 7 && cNow == 0 && chessBoard[rNow][cNow]->getPieces() == 'R')
+                        {
+                            if (isWhiteTurn() == true)
+                            {
+
+                                this->hasLeftRookMovedW++;
+                            }
+                            else
+                            {
+                                this->hasLeftRookMovedB++;
+                            }
+                        }
+
+                        // keeps track if Right Rook has moved or not
+
+                        if (rNow == 7 && cNow == 7 && chessBoard[rNow][cNow]->getPieces() == 'R')
+                        {
+                            if (isWhiteTurn() == true)
+                            {
+                                this->hasRightRookMovedW++;
+                            }
+                            else
+                            {
+                                this->hasRightRookMovedB++;
+                            }
+                        }
+
+                        temp = chessBoard[rNow][cNow];
+                        chessBoard[rNow][cNow] = chessBoard[rDist][cDist];
+                        chessBoard[rDist][cDist] = temp;
+                        incrementTurn();
+                        flipBoard();
+                    }
                 }
             }
             else
@@ -416,7 +633,24 @@ label1:
                 goto label1;
             }
         }
+        else
+        {
+            system("clear");
+            print();
+            cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
+            validMove = false;
+            goto label1;
+        }
     }
+    else
+    {
+        system("clear");
+        print();
+        cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
+        validMove = false;
+        goto label1;
+    }
+    system("clear");
 }
 
 bool ChessBoard::noCheckAfterMove(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
@@ -439,6 +673,177 @@ bool ChessBoard::noCheckAfterMove(int rDest, int cDest, int rNow, int cNow, Game
     {
         return true;
     }
+}
+
+bool ChessBoard::stalemate(int rKing, int cKing, GamePieces *ChessBoard[8][8])
+{
+    int count = 0;
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            if (chessBoard[i][j] == 0)
+            {
+                if (chessBoard[rKing][cKing]->isMoveLegal(i, j, rKing, cKing, chessBoard) == true)
+                {
+                    if (ifPieceCanBeTaken(i, j, chessBoard) == true)
+                    {
+                        count++;
+                    }
+                }
+            }
+        }
+    }
+
+    if (rKing == 7 && cKing == 0)
+    {
+        if (count > 2)
+        {
+            return true;
+        }
+    }
+    else if (rKing == 7 && cKing == 7)
+    {
+        if (count > 2)
+        {
+            return true;
+        }
+    }
+    else if (rKing == 0 && cKing == 0)
+    {
+        if (count > 2)
+        {
+            return true;
+        }
+    }
+    else if (rKing == 0 && cKing == 7)
+    {
+        if (count > 2)
+        {
+            return true;
+        }
+    }
+
+    if (count == 5)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool ChessBoard::castling(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
+{
+    if (isWhiteTurn() == true)
+    {
+        // to the right
+        if (rNow == 7 && cNow == 4)
+        {
+            if (rNow == 7 && cNow == 4 && rDest == 7 && cDest == 6)
+            {
+                if (chessBoard[7][5] == 0 && chessBoard[7][6] == 0)
+                {
+                    if (hasKingMovedW == 0 && hasRightRookMovedW == 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        // to the left
+        if (rNow == 7 && cNow == 4)
+        {
+            if (rNow == 7 && cNow == 4 && rDest == 7 && cDest == 2)
+            {
+
+                if (chessBoard[7][1] == 0 && chessBoard[7][2] == 0 && chessBoard[7][3] == 0)
+                {
+                    if (hasKingMovedW == 0 && hasLeftRookMovedW == 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    // does the same thing for black
+    else
+    {
+
+        if (rNow == 7 && cNow == 3)
+        {
+            if (rNow == 7 && cNow == 3 && rDest == 7 && cDest == 5)
+            {
+
+                if (chessBoard[7][4] == 0 && chessBoard[7][5] == 0 && chessBoard[7][6] == 0)
+                {
+                    if (hasKingMovedB == 0 && hasRightRookMovedB == 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        if (rNow == 7 && cNow == 3)
+        {
+            if (rNow == 7 && cNow == 3 && rDest == 7 && cDest == 1)
+            {
+                if (chessBoard[7][1] == 0 && chessBoard[7][2] == 0)
+                {
+                    if (hasKingMovedB == 0 && hasLeftRookMovedB == 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    // return false
+    return false;
+}
+
+bool ChessBoard::promotion(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
+{
+    if (rNow == 1 && rDest == 0)
+    {
+    label2:
+
+        char piece;
+        cout << "Chose a new piece (N,Q,R,B): ";
+        cin >> piece;
+        switch (piece)
+        {
+        case 'N':
+            ChessBoard[rNow][cNow] = new Knight(playerColor);
+            return true;
+            break;
+        case 'Q':
+            ChessBoard[rNow][cNow] = new Queen(playerColor);
+            cout << "working" << endl;
+            return true;
+            break;
+        case 'R':
+            ChessBoard[rNow][cNow] = new Rook(playerColor);
+            return true;
+            break;
+        case 'B':
+            ChessBoard[rNow][cNow] = new Bishop(playerColor);
+            return true;
+            break;
+
+        default:
+            system("clear");
+            print();
+            cout << "\033[0;36mInvalid Piece\033[0;0m" << endl;
+            goto label2;
+            break;
+        }
+    }
+    return false;
 }
 
 bool ChessBoard::isInCheck()
@@ -471,27 +876,42 @@ bool ChessBoard::isInCheck()
             }
         }
     }
+    bool staleMate = stalemate(rKing, cKing, chessBoard);
+
+    if (staleMate == true)
+    {
+        cout << "\033[0;36mDRAW STALAMATE\033[0;0m" << endl;
+        exit(0);
+    }
 
     // Check if any of the opponent's pieces can attack the king
-    for (int i = 0; i < 8; i++)
+    if (ifPieceCanBeTaken(rKing, cKing, chessBoard) == true)
     {
-        for (int j = 0; j < 8; j++)
-        {
-            if (chessBoard[i][j] != 0)
-            {
-
-                if (chessBoard[i][j]->isMoveLegal(rKing, cKing, i, j, chessBoard) == true)
-                {
-
-                    return true; // King is in check
-                }
-            }
-        }
+        return true;
     }
 
     cout << endl;
 
     return false; // King is not in check
+}
+
+bool ChessBoard::ifPieceCanBeTaken(int rNow, int cNow, GamePieces *ChessBoard[8][8])
+{
+
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            if (chessBoard[i][j] != 0 && chessBoard[i][j]->getPiecesColour() == opponentColor)
+            {
+                if (chessBoard[i][j]->isMoveLegal(rNow, cNow, i, j, chessBoard) == true)
+                {
+                    return true; // can be taken
+                }
+            }
+        }
+    }
+    return false;
 }
 
 bool ChessBoard::checkMate()
@@ -536,10 +956,18 @@ bool ChessBoard::checkMate()
                 }
             }
         }
-
-        cout << endl
-             << "\033[0;36m||YOU LOST CHECKMATE||\033[0;0m" << endl;
-        return true;
+        if (isWhiteTurn() == true)
+        {
+            cout << endl
+                 << "\033[0;36m||WHITE LOST CHECKMATE||\033[0;0m" << endl;
+            return true;
+        }
+        else
+        {
+            cout << endl
+                 << "\033[0;36m||BLACK LOST CHECKMATE||\033[0;0m" << endl;
+            return true;
+        }
     }
     else
     {
