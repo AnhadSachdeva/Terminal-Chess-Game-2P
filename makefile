@@ -1,3 +1,5 @@
+# makefile runs the chess program in the terminal
+
 CC = g++
 
 SRC_DIR = ./src

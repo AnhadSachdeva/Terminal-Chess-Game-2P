@@ -28,7 +28,7 @@ char Player::getPlayerColor()
 }
 
 // Method to display the starting of the game
-void Player::setupPlayers()
+void Player::setPlayers()
 {
 
 // Checks the operating system of the user, and sets clearScreen variable to clear the terminal according to the operating system. "cls" for windows, and "clear" for linux & mac

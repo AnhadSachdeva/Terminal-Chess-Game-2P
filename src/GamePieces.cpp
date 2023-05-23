@@ -29,7 +29,7 @@ bool GamePieces::isMoveLegal(int rDest, int cDest, int rNow, int cNow, GamePiece
     if (check == 0 || check->getPiecesColour() != this->piecesColour)
     {
         // Checkes if the Move is Legal for the Piece
-        //pure virtual function
+        // pure virtual function
         return isMoveLegalForPiece(rDest, cDest, rNow, cNow, ChessBoard);
     }
     else

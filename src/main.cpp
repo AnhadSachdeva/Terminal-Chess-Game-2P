@@ -19,9 +19,9 @@ using namespace std;
 
 int main()
 {
-    
+
     Player initalSetup;
-    initalSetup.setupPlayers();
+    initalSetup.setPlayers();
 
     ChessBoard chess;
     chess.start();
