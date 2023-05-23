@@ -16,9 +16,19 @@ Q - Queen ,
 B - Bishop ,
 R - Rook
 
+If you are on Windows to complie the code you neeed to run the following command
+
+To complie
+cd src
+g++ *.cpp -o chess.exe
+
+To run
+.\chess.exe
+
 
 To exit the game, simply enter "exit" in the terminal.
 
+This only works on MacOS
 To restart the game, simply enter "restart" in the terminal
 
 
