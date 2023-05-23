@@ -3,7 +3,7 @@
     This is where the Queen class methods are defined.
 */
 
-#include "../headers/Queen.h"
+#include "../Headers/Queen.h"
 
 // Default constructor of Queen Class
 Queen::Queen()

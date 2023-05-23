@@ -2,7 +2,7 @@
     This is the Knight class implementation file.
     This is where the Knight class methods are defined.
 */
-#include "../headers/Knight.h"
+#include "../Headers/Knight.h"
 
 // Default constructor of Knight Class
 Knight::Knight()

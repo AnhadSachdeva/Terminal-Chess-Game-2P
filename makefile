@@ -8,5 +8,7 @@ all: chess
 chess: $(SRC_FILES)
 	$(CC) -o $@ $^
 
+
+# deletes the files chess
 clean:
 	rm -f chess

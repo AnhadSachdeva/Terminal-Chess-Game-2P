@@ -3,7 +3,7 @@
     This is where the Pawn class methods are defined.
 */
 
-#include "../headers/Pawn.h"
+#include "../Headers/Pawn.h"
 
 // Default constructor of Pawn Class
 Pawn::Pawn()
@@ -70,9 +70,12 @@ bool Pawn::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePie
 
         return true;
     }
-    else
+    
+    else if (scalarRDest == 1 && scalarCDest == 1 && test->getPiecesColour() != ChessBoard[rNow][cNow]->getPiecesColour())
     {
-        return false;
+        if (test->getPieces() == 'K'){
+        return true;
+        }
     }
     return false;
 }

@@ -1,4 +1,4 @@
-#include "../headers/GamePieces.h"
+#include "../Headers/GamePieces.h"
 
 GamePieces::GamePieces()
 {
@@ -14,7 +14,7 @@ bool GamePieces::isMoveLegal(int rDest, int cDest, int rNow, int cNow, GamePiece
     /*
         The Co-ordinates of the Piece that the User wants to Move:
           "rNow" = current row
-          "cNow" = current coloumnc
+          "cNow" = current coloumn
 
         The Co-ordinates of the Destination where the User wants move the Piece to:
           "rDest" = row destination
@@ -29,6 +29,7 @@ bool GamePieces::isMoveLegal(int rDest, int cDest, int rNow, int cNow, GamePiece
     if (check == 0 || check->getPiecesColour() != this->piecesColour)
     {
         // Checkes if the Move is Legal for the Piece
+        //pure virtual function
         return isMoveLegalForPiece(rDest, cDest, rNow, cNow, ChessBoard);
     }
     else

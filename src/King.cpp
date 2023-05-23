@@ -3,7 +3,7 @@
     This is where the King class methods are defined.
 */
 
-#include "../headers/King.h"
+#include "../Headers/King.h"
 
 // Default constructor of King Class
 King::King()

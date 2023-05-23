@@ -3,7 +3,9 @@ object-oriented programming principles. The game includes various
 features such as checkmate and check detection, validation of moves, 
 handling invalid moves while in check, promotion, castling, and stalemate. 
 For instance, if a player is in check, they can only move the pieces 
-that prevent them from remaining in check.
+that prevent them from remaining in check. Furthermore, it is recommended to play
+this game in black-background terminal.
+
 
 Piece Notation:
 
