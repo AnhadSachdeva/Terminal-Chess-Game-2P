@@ -45,6 +45,8 @@ void Player::setupPlayers()
     string playerName1;
     string playerName2;
     cout << "" << endl;
+    cout << "          \033[0;31mPlease Read the ReadMe File\033[0m             " << endl;
+
     cout << "-------------------------------------------------" << endl;
     cout << "           Welcome to the Chess Game             " << endl;
     cout << "-------------------------------------------------" << endl;
