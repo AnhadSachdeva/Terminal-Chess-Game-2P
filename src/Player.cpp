@@ -35,7 +35,7 @@ void Player::setupPlayers()
 #if defined(_WIN32) || defined(_WIN64)
     string clearScreen = "cls"; // clears the terminal in windows
 #else
-    string clearScreen = "clear"; // clears the terminal in linux & mac
+    string clearScreen = "clear && printf '\e[3J'"; // clears the terminal in linux & mac
 #endif
 
     // Clears the terminal
@@ -45,25 +45,32 @@ void Player::setupPlayers()
     string playerName1;
     string playerName2;
     cout << "" << endl;
-    cout << "          \033[0;31mPlease Read the ReadMe File\033[0m             " << endl;
-
-    cout << "-------------------------------------------------" << endl;
-    cout << "           Welcome to the Chess Game             " << endl;
-    cout << "-------------------------------------------------" << endl;
-
+    cout << "" << endl;
+    cout << "     \033[1;31mPlease Read the ReadMe File\033[0m       " << endl;
+    cout << " " << endl;
+    cout << "\033[0;103m------------------------------------\033[0m" << endl;
+    cout << "\033[0;103m     Welcome to the Chess Game      \033[0m" << endl;
+    cout << "\033[0;103m------------------------------------\033[0m" << endl;
+    cout << " " << endl;
     // Takes the input of the player names
-    cout << "Enter the name of \033[1;37mPlayer 1\033[0m: ";
+    cout << "\033[0;33mEnter the name of\033[0m \033[1;34mPlayer 1\033[0m: ";
     cin >> playerName1;
-    cout << "-------------------------------------------------" << endl;
 
-    cout << "Enter the name of \033[1;37mPlayer 2\033[0m: ";
+    cout << "" << endl;
+
+    cout << "\033[0;33mEnter the name of\033[0m \033[1;34mPlayer 2\033[0m: ";
     cin >> playerName2;
 
     Player player1(playerName1, 'w');
     Player player2(playerName2, 'g');
-    cout << "-------------------------------------------------" << endl;
-    cout << "-------------------------------------------------" << endl;
 
+    // Clears the terminal
+    system(clearScreen.c_str());
+    cout << "" << endl;
+    cout << "\033[0;103m-------------------------------------\033[0m" << endl;
+    cout << "\033[0;103m      Welcome to the Chess Game      \033[0m" << endl;
+    cout << "\033[0;103m-------------------------------------\033[0m" << endl;
+    cout << " " << endl;
     cout << "Player 1: "
          << "\033[1;37m" << playerName1 << "\033[0m"
          << " is playing as \033[1;37mWHITE\033[0m" << endl;
@@ -72,6 +79,5 @@ void Player::setupPlayers()
          << "\033[1;32m" << playerName2 << "\033[0m"
          << " is playing as \033[1;32mGREEN\033[0m" << endl;
 
-    cout << "-------------------------------------------------" << endl;
-    cout << "--------------The Game Has Started---------------" << endl;
+    cout << " " << endl;
 }

@@ -16,14 +16,18 @@ Q - Queen ,
 B - Bishop ,
 R - Rook
 
-If you are on Windows to complie the code you neeed to run the following command
+Note: If you are on Windows:
 
-To complie
-cd src
-g++ *.cpp -o chess.exe
+    To complie the code you neeed to run the following command:
 
-To run
-.\chess.exe
+        To complie
+        cd src
+        g++ *.cpp -o chess.exe
+
+        To run
+        .\chess.exe
+    
+    You may need to change the "clearScreen" variable in the ChessBoard class, if your Terminal/CommandPrompt only accepts "clear" and not "cls".
 
 
 To exit the game, simply enter "exit" in the terminal.

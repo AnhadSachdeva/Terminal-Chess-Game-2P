@@ -1,18 +1,19 @@
-#include "../Headers/ChessBoard.h"
-
-#include <cstdlib>
-
-using namespace std;
-
 /*
     This is the implementation file of ChessBoard Class
+    It is responsible for the interaction between the Chess Board and the objects in the Chess Board.
 */
+
+#include "../Headers/ChessBoard.h"
+
+using namespace std;
 
 // Checks the operating system of the user, and sets clearScreen variable to clear the terminal according to the operating system. "cls" for windows, and "clear" for linux & mac
 #if defined(_WIN32) || defined(_WIN64)
 string clearScreen = "cls"; // clears the terminal in windows
+string runFile = "./chess.sh";
 #else
-string clearScreen = "clear"; // clears the terminal in linux & mac
+string clearScreen = "clear && printf '\e[3J'"; // clears the terminal in linux & mac
+string runFile = "./chess.sh";
 #endif
 
 // Default constructor of ChessBoard Class
@@ -115,8 +116,14 @@ void ChessBoard::print()
     char bColumn = 'h';
 
     cout << " " << endl;
+    cout << "\033[0;106m-------------------------------------\033[0m" << endl;
+    cout << "\033[0;106m        The Game Has Started         \033[0m" << endl;
+    cout << "\033[0;106m-------------------------------------\033[0m" << endl;
+    cout << " " << endl;
+    cout << " " << endl;
     cout << "To Exit the Game: Enter '\033[1;37mexit\033[0m' " << endl;
     cout << "To Restart the Game: Enter '\033[1;37mrestart\033[0m' " << endl;
+    cout << " " << endl;
     cout << " " << endl;
 
     for (int i = 0; i < 9; i++)
@@ -244,18 +251,23 @@ label1:
         // Input validation for White's turn for exiting or restarting the game
         if (isWhiteTurn())
         {
+
             Player = "\033[1;37mWhite's Turn\033[0m\n";
             cout << Player;
-           
+            cout << "" << endl;
             cout << "\033[1;37mCoordinates of The Piece You Want To Move: \033[0m";
             cin >> initialPiece;
             if (initialPiece == "exit" || initialPiece == "Exit" || initialPiece == "EXIT")
             {
                 system(clearScreen.c_str());
-                cout << "Thanks For Playing!" << endl;
-                
+
+                cout << " " << endl;
+                cout << "\033[0;106m                                    \033[0m" << endl;
+                cout << "\033[0;106m             THANK YOU              \033[0m" << endl;
+                cout << "\033[0;106m                                    \033[0m" << endl;
+                cout << " " << endl;
+
                 exit(0);
-                break;
             }
             if (initialPiece == "restart" || initialPiece == "Restart" || initialPiece == "RESTART")
             {
@@ -266,14 +278,16 @@ label1:
             cout << "\033[1;37mCoordinates of Where You Want To Move The Piece To: \033[0m";
             cin >> destinationPiece;
 
-
             if (destinationPiece == "exit" || destinationPiece == "Exit" || destinationPiece == "EXIT")
             {
                 system(clearScreen.c_str());
-                cout << "Thanks For Playing!" << endl;
-                
+                cout << " " << endl;
+                cout << "\033[0;106m                                    \033[0m" << endl;
+                cout << "\033[0;106m             THANK YOU              \033[0m" << endl;
+                cout << "\033[0;106m                                    \033[0m" << endl;
+                cout << " " << endl;
+
                 exit(0);
-                break;
             }
             if (destinationPiece == "restart" || destinationPiece == "Restart" || destinationPiece == "RESTART")
             {
@@ -287,15 +301,18 @@ label1:
         {
             Player = "\033[1;32mGreen's Turn\033[0m\n";
             cout << Player;
-
+            cout << "" << endl;
             cout << "\033[1;32mCoordinates of The Piece You Want To Move: \033[0m";
             cin >> initialPiece;
             if (initialPiece == "exit" || initialPiece == "Exit" || initialPiece == "EXIT")
             {
                 system(clearScreen.c_str());
-                cout << "Thanks For Playing!" << endl;
+                cout << " " << endl;
+                cout << "\033[0;106m                                    \033[0m" << endl;
+                cout << "\033[0;106m             THANK YOU              \033[0m" << endl;
+                cout << "\033[0;106m                                    \033[0m" << endl;
+                cout << " " << endl;
                 exit(0);
-                break;
             }
 
             if (initialPiece == "restart" || initialPiece == "Restart" || initialPiece == "RESTART")
@@ -310,10 +327,12 @@ label1:
             if (destinationPiece == "exit" || destinationPiece == "Exit" || destinationPiece == "EXIT")
             {
                 system(clearScreen.c_str());
-                cout << "Thanks For Playing!" << endl;
+                cout << " " << endl;
+                cout << "\033[0;106m                                    \033[0m" << endl;
+                cout << "\033[0;106m             THANK YOU              \033[0m" << endl;
+                cout << "\033[0;106m                                    \033[0m" << endl;
+                cout << " " << endl;
                 exit(0);
-                break;
-
             }
             if (destinationPiece == "restart" || destinationPiece == "Restart" || destinationPiece == "RESTART")
             {
@@ -337,31 +356,36 @@ label1:
                     {
                         system(clearScreen.c_str());
                         print();
-                        cout << "\033[0;36mInvalid Move\033[0m" << endl;
+                        cout << " " << endl;
+                        cout << "\033[0;101m     Invalid Move - Try Again!      \033[0m" << endl;
+                        cout << " " << endl;
                     }
                 }
                 else
                 {
                     system(clearScreen.c_str());
                     print();
-
-                    cout << "\033[0;36mInvalid Move\033[0m" << endl;
+                    cout << " " << endl;
+                    cout << "\033[0;101m     Invalid Move - Try Again!      \033[0m" << endl;
+                    cout << " " << endl;
                 }
             }
             else
             {
                 system(clearScreen.c_str());
                 print();
-
-                cout << "\033[0;36mInvalid Move\033[0m" << endl;
+                cout << " " << endl;
+                cout << "\033[0;101m     Invalid Move - Try Again!      \033[0m" << endl;
+                cout << " " << endl;
             }
         }
         else
         {
             system(clearScreen.c_str());
             print();
-
-            cout << "\033[0;36mInvalid Move\033[0m" << endl;
+            cout << " " << endl;
+            cout << "\033[0;101m     Invalid Move - Try Again!      \033[0m" << endl;
+            cout << " " << endl;
         }
     }
 
@@ -396,7 +420,9 @@ label1:
     {
         system(clearScreen.c_str());
         print();
-        cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
+        cout << " " << endl;
+        cout << "\033[0;101m     Invalid Move - Try Again!      \033[0m" << endl;
+        cout << " " << endl;
         validMove = false;
         goto label1;
     }
@@ -433,7 +459,7 @@ label1:
                         chessBoard[7][3] = 0;
                         system(clearScreen.c_str());
                         print();
-                        cout << "\033[0;36mInvalid Move: King in Check\033[0;0m" << endl;
+                        cout << "\033[0;101m   Invalid Move - King in Check!    \033[0m" << endl;
                         validMove = false;
                         // Go to the while loop to prompt again
                         goto label1;
@@ -462,7 +488,9 @@ label1:
                         chessBoard[7][5] = 0;
                         system(clearScreen.c_str());
                         print();
-                        cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
+                        cout << " " << endl;
+                        cout << "\033[0;101m     Invalid Move - Try Again!      \033[0m" << endl;
+                        cout << " " << endl;
                         validMove = false;
                         goto label1;
                     }
@@ -494,7 +522,7 @@ label1:
                         chessBoard[7][2] = 0;
                         system(clearScreen.c_str());
                         print();
-                        cout << "\033[0;36mInvalid Move: King in Check\033[0;0m" << endl;
+                        cout << "\033[0;101m   Invalid Move - King in Check!    \033[0m" << endl;
                         validMove = false;
                         goto label1;
                     }
@@ -521,7 +549,9 @@ label1:
                         chessBoard[7][4] = 0;
                         system(clearScreen.c_str());
                         print();
-                        cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
+                        cout << " " << endl;
+                        cout << "\033[0;101m     Invalid Move - Try Again!      \033[0m" << endl;
+                        cout << " " << endl;
                         validMove = false;
                         goto label1;
                     }
@@ -689,7 +719,7 @@ label1:
             {
                 system(clearScreen.c_str());
                 print();
-                cout << "\033[0;36mInvalid Move: King in Check\033[0;0m" << endl;
+                cout << "\033[0;101m   Invalid Move - King in Check!    \033[0m" << endl;
                 validMove = false;
                 goto label1;
             }
@@ -698,7 +728,9 @@ label1:
         {
             system(clearScreen.c_str());
             print();
-            cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
+            cout << " " << endl;
+            cout << "\033[0;101m     Invalid Move - Try Again!      \033[0m" << endl;
+            cout << " " << endl;
             validMove = false;
             goto label1;
         }
@@ -707,7 +739,9 @@ label1:
     {
         system(clearScreen.c_str());
         print();
-        cout << "\033[0;36mInvalid Move\033[0;0m" << endl;
+        cout << " " << endl;
+        cout << "\033[0;101m     Invalid Move - Try Again!      \033[0m" << endl;
+        cout << " " << endl;
         validMove = false;
         goto label1;
     }
@@ -800,7 +834,11 @@ bool ChessBoard::isInCheck()
 
     if (staleMate == true)
     {
-        cout << "\033[0;36mDRAW STALAMATE\033[0;0m" << endl;
+        cout << " " << endl;
+        cout << "\033[0;101m------------------------------------\033[0m" << endl;
+        cout << "\033[0;101m          DRAW - STALEMATE          \033[0m" << endl;
+        cout << "\033[0;101m------------------------------------\033[0m" << endl;
+        cout << " " << endl;
         exit(0);
     }
 
@@ -933,7 +971,9 @@ bool ChessBoard::checkMate()
 
                                     if (!thereIsAMove)
                                     {
-                                        cout << "\033[0;36m!!!!!!!!!!!!! Check !!!!!!!!!!!!!!\033[0;0m" << endl;
+                                        cout << " " << endl;
+                                        cout << "\033[0;101m               CHECK               \033[0m" << endl;
+                                        cout << " " << endl;
                                         return false;
                                     }
                                 }
@@ -945,21 +985,23 @@ bool ChessBoard::checkMate()
         }
         if (isWhiteTurn() == true)
         {
-            cout << "-------------------------------------------------" << endl;
-            cout << "" << endl;
-            cout << "\033[1;37m!!CHECKMATE!!\033[0m - \033[1;32mGREEN WON THE GAME\033[0m" << endl;
-            cout << "" << endl;
-            cout << "-------------------------------------------------" << endl;
+            cout << " " << endl;
+            cout << "\033[0;101m             CHECKMATE              \033[0m" << endl;
+            cout << "\033[0;102m                                    \033[0m" << endl;
+            cout << "\033[0;102m             GREEN WON              \033[0m" << endl;
+            cout << "\033[0;102m                                    \033[0m" << endl;
+            cout << " " << endl;
             exit(0);
             return true;
         }
         else
         {
-            cout << "-------------------------------------------------" << endl;
-            cout << "" << endl;
-            cout << "\033[1;32m!!CHECKMATE!!\033[0m - \033[1;37mWHITE WON THE GAME\033[0m" << endl;
-            cout << "" << endl;
-            cout << "-------------------------------------------------" << endl;
+            cout << " " << endl;
+            cout << "\033[0;101m             CHECKMATE              \033[0m" << endl;
+            cout << "\033[0;107m                                    \033[0m" << endl;
+            cout << "\033[0;107m             WHITE WON              \033[0m" << endl;
+            cout << "\033[0;107m                                    \033[0m" << endl;
+            cout << " " << endl;
             exit(0);
             return true;
         }
@@ -1009,7 +1051,9 @@ bool ChessBoard::promotion(int rDest, int cDest, int rNow, int cNow, GamePieces 
         default:
             system(clearScreen.c_str());
             print();
-            cout << "\033[0;36mInvalid Piece\033[0;0m" << endl;
+            cout << " " << endl;
+            cout << "\033[0;101m     Invalid Move - Try Again!      \033[0m" << endl;
+            cout << " " << endl;
             goto label2;
             break;
         }
