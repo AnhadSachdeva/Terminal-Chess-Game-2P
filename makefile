@@ -1,2 +1,12 @@
-chess: main.cpp GamePieces.cpp ChessBoard.cpp Pawn.cpp Bishop.cpp Rook.cpp Knight.cpp King.cpp Queen.cpp Player.cpp
-	g++ main.cpp GamePieces.cpp ChessBoard.cpp Pawn.cpp Bishop.cpp Rook.cpp Knight.cpp King.cpp Queen.cpp Player.cpp -o chess
+CC = g++
+
+SRC_DIR = ./src
+SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
+
+all: chess
+
+chess: $(SRC_FILES)
+	$(CC) -o $@ $^
+
+clean:
+	rm -f chess

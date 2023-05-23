@@ -1,26 +1,42 @@
-#include "Headers/Queen.h"
-#include "Headers/Rook.h"
-#include "Headers/Bishop.h"
+/*
+    This is the Queen class implementation file.
+    This is where the Queen class methods are defined.
+*/
 
+#include "../headers/Queen.h"
+
+// Default constructor of Queen Class
 Queen::Queen()
 {
 }
 
+// Constructor of Queen Class with parameter Colour
 Queen::Queen(char Colour) : GamePieces(Colour)
 {
 }
 
+// Method to return the piece code which is "Q"
 char Queen::getPieces()
 {
     return 'Q';
 }
 
+// Method to check if the move is legal for the Queen. It can only move in a straight line or diagonal
 bool Queen::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
 {
+    // Makes a test piece on the destination we want to move the piece on
     GamePieces *test = ChessBoard[rDest][cDest];
+
+    // checkRow is the row difference between the row destination and the current row position
     int checkRow = rDest - rNow;
+
+    // checkColoumn is the coloumn difference between the coloumn destination and the current coloumn position
     int checkColoumn = cDest - cNow;
+
+    // scalarRDest is the absolute value of the row difference between the row destination and the current row position
     int scalarRDest = abs(rDest - rNow);
+
+    // scalarCDest is the absolute value of the coloumn difference between the coloumn destination and the current coloumn position
     int scalarCDest = abs(cDest - cNow);
 
     if (test == 0)
@@ -28,24 +44,25 @@ bool Queen::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePi
 
         if (scalarRDest == 0 || scalarCDest == 0)
         {
-            // rook
+            // Checks if there is no Piece in between straight line, similar to Rook's Move
             if (noPieceInBetweenRook(checkRow, checkColoumn, scalarRDest, scalarCDest, rNow, cNow, ChessBoard) == true)
             {
                 return true;
             }
-            // check there is no piecee in between when the rook moves up
+
         }
         else if (scalarRDest == scalarCDest)
         {
 
-            // bishop
-            //  check there is no piecee in between to the left diagonal
+            //  Chceks if there is no Piece in between diagonal line, similar to Bishop's Move
             if (noPieceInBetweenBish(checkRow, checkColoumn, scalarRDest, scalarCDest, rNow, cNow, ChessBoard) == true)
             {
                 return true;
             }
         }
     }
+
+    // Checks if the Destination is Not Empty and the Piece on the Destination is not the same Colour as the Piece on the Current Position
     else if (scalarRDest == 0 || scalarCDest == 0 && test->getPiecesColour() != ChessBoard[rNow][cNow]->getPiecesColour())
     {
 
@@ -60,12 +77,12 @@ bool Queen::isMoveLegalForPiece(int rDest, int cDest, int rNow, int cNow, GamePi
         {
             return true;
         }
-
     }
 
     return false;
 }
 
+// Method to check if there is no piece in between the Queen's path in a diagonal line similar to Bishop's move
 bool Queen::noPieceInBetweenBish(int checkRow, int checkColoumn, int scalarRDest, int scalarCDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
 {
     if (checkRow < 0 && checkColoumn < 0)
@@ -89,8 +106,8 @@ bool Queen::noPieceInBetweenBish(int checkRow, int checkColoumn, int scalarRDest
             }
         }
     }
-    // check there is no piecee in between to the bottom-left diagonal
 
+    // Checks there is no piecee in between to the bottom-left diagonal
     if (checkRow > 0 && checkColoumn > 0)
     {
         for (int i = 1; i < scalarRDest; i++)
@@ -101,8 +118,7 @@ bool Queen::noPieceInBetweenBish(int checkRow, int checkColoumn, int scalarRDest
             }
         }
     }
-    // check there is no piecee in between to the bottom-right diagonal
-
+    // Checks if there is no piecee in between to the bottom-right diagonal
     if (checkRow > 0 && checkColoumn < 0)
     {
         for (int i = 1; i < scalarRDest; i++)
@@ -116,6 +132,7 @@ bool Queen::noPieceInBetweenBish(int checkRow, int checkColoumn, int scalarRDest
     return true;
 }
 
+// Method to check if there is no piece in between the Queen's path in a straight line similar to Rook's move
 bool Queen::noPieceInBetweenRook(int checkRow, int checkColoumn, int scalarRDest, int scalarCDest, int rNow, int cNow, GamePieces *ChessBoard[8][8])
 {
 
@@ -129,7 +146,8 @@ bool Queen::noPieceInBetweenRook(int checkRow, int checkColoumn, int scalarRDest
             }
         }
     }
-    // check there is no piecee in between when the rook moves down
+
+    // Checks if there is no piecee in between when the rook moves down
     if (checkRow > 0 && checkColoumn == 0)
     {
         for (int i = 1; i < scalarRDest; i++)
@@ -140,8 +158,8 @@ bool Queen::noPieceInBetweenRook(int checkRow, int checkColoumn, int scalarRDest
             }
         }
     }
-    // check there is no piecee in between when the rook moves left
 
+    // Checks if there is no piecee in between when the rook moves left
     if (checkRow == 0 && checkColoumn < 0)
     {
         for (int i = 1; i < scalarCDest; i++)
@@ -152,8 +170,8 @@ bool Queen::noPieceInBetweenRook(int checkRow, int checkColoumn, int scalarRDest
             }
         }
     }
-    // check there is no piecee in between when the rook right
 
+    // Checks if there is no piecee in between when the rook right
     if (checkRow == 0 && checkColoumn > 0)
     {
         for (int i = 1; i < scalarCDest; i++)
