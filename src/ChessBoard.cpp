@@ -273,6 +273,7 @@ label1:
             {
                 system(clearScreen.c_str());
                 system("./chess.sh");
+                exit(0);
             }
 
             cout << "\033[1;37mCoordinates of Where You Want To Move The Piece To: \033[0m";
@@ -293,6 +294,7 @@ label1:
             {
                 system(clearScreen.c_str());
                 system("./chess.sh");
+                exit(0);
             }
         }
 
@@ -319,6 +321,7 @@ label1:
             {
                 system(clearScreen.c_str());
                 system("./chess.sh");
+                exit(0);
             }
 
             cout << "\033[1;32mCoordinates of Where You Want To Move The Piece To: \033[0m";
@@ -338,6 +341,7 @@ label1:
             {
                 system(clearScreen.c_str());
                 system("./chess.sh");
+                exit(0);
             }
         }
 
