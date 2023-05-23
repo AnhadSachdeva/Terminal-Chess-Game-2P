@@ -29,6 +29,8 @@ protected:
     // stores the opponents colour
     char opponentColor;
 
+
+    // to check if castling valid or not  
     int hasKingMovedB;
     int hasRightRookMovedB;
     int hasLeftRookMovedB;
