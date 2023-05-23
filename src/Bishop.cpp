@@ -3,7 +3,7 @@
     This is where the Bishop class methods are defined.
 */
 
-#include "../headers/Bishop.h"
+#include "../Headers/Bishop.h"
 
 // Default constructor of Bishop Class
 Bishop::Bishop()

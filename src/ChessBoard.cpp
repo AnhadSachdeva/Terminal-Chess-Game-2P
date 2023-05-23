@@ -1,4 +1,5 @@
-#include "../headers/ChessBoard.h"
+#include "../Headers/ChessBoard.h"
+
 #include <cstdlib>
 
 using namespace std;
@@ -251,8 +252,9 @@ label1:
             if (initialPiece == "exit" || initialPiece == "Exit" || initialPiece == "EXIT")
             {
                 system(clearScreen.c_str());
-                exit(0);
                 cout << "Thanks For Playing!" << endl;
+                exit(0);
+              
             }
             if (initialPiece == "restart" || initialPiece == "Restart" || initialPiece == "RESTART")
             {
@@ -264,8 +266,9 @@ label1:
             if (destinationPiece == "exit" || destinationPiece == "Exit" || destinationPiece == "EXIT")
             {
                 system(clearScreen.c_str());
-                exit(0);
                 cout << "Thanks For Playing!" << endl;
+                exit(0);
+              
             }
             if (destinationPiece == "restart" || destinationPiece == "Restart" || destinationPiece == "RESTART")
             {

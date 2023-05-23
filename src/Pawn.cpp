@@ -3,7 +3,7 @@
     This is where the Pawn class methods are defined.
 */
 
-#include "../headers/Pawn.h"
+#include "../Headers/Pawn.h"
 
 // Default constructor of Pawn Class
 Pawn::Pawn()
