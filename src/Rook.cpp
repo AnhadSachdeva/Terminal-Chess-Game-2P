@@ -3,7 +3,7 @@
     This is where the Rook class methods are defined.
 */
 
-#include "../headers/Rook.h"
+#include "../Headers/Rook.h"
 
 // Default constructor of Rook Class
 Rook::Rook()
