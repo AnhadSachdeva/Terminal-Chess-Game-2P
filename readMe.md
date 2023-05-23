@@ -10,11 +10,11 @@ Furthermore, it is recommended to play this game in black-background terminal.
 
 Piece Notation:
 
-P - Pawn
-N - Knight
-K - King
-Q - Queen
-B - Bishop
+P - Pawn ,
+N - Knight ,
+K - King ,
+Q - Queen ,
+B - Bishop ,
 R - Rook
 
 To exit the game, simply enter "exit" or "Exit" in the terminal.
