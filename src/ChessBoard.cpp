@@ -261,8 +261,11 @@ label1:
                 system(clearScreen.c_str());
                 system("./chess.sh");
             }
+
+
             cout << "\033[1;37mCoordinates of Where You Want To Move The Piece To: \033[0m";
             cin >> destinationPiece;
+
             if (destinationPiece == "exit" || destinationPiece == "Exit" || destinationPiece == "EXIT")
             {
                 system(clearScreen.c_str());
@@ -276,6 +279,7 @@ label1:
                 system("./chess.sh");
             }
         }
+
         // Input validation for Green's turn for exiting or restarting the game
         else
         {
@@ -287,21 +291,26 @@ label1:
             if (initialPiece == "exit" || initialPiece == "Exit" || initialPiece == "EXIT")
             {
                 system(clearScreen.c_str());
-                exit(0);
                 cout << "Thanks For Playing!" << endl;
+                exit(0);
+                
             }
+
             if (initialPiece == "restart" || initialPiece == "Restart" || initialPiece == "RESTART")
             {
                 system(clearScreen.c_str());
                 system("./chess.sh");
             }
+
             cout << "\033[1;32mCoordinates of Where You Want To Move The Piece To: \033[0m";
             cin >> destinationPiece;
+
             if (destinationPiece == "exit" || destinationPiece == "Exit" || destinationPiece == "EXIT")
             {
                 system(clearScreen.c_str());
-                exit(0);
                 cout << "Thanks For Playing!" << endl;
+                exit(0);
+                
             }
             if (destinationPiece == "restart" || destinationPiece == "Restart" || destinationPiece == "RESTART")
             {
@@ -309,6 +318,8 @@ label1:
                 system("./chess.sh");
             }
         }
+
+
 
         // Checks if the input is valid
         if (initialPiece[0] >= 'a' && initialPiece[0] <= 'h')
@@ -730,7 +741,8 @@ void ChessBoard::flipBoard()
     }
 }
 
-// Checks if the Opponent Piece can be taken or not
+
+// Checks if the any Piece can be taken or not
 bool ChessBoard::ifPieceCanBeTaken(int rNow, int cNow, GamePieces *ChessBoard[8][8])
 {
 
@@ -740,10 +752,13 @@ bool ChessBoard::ifPieceCanBeTaken(int rNow, int cNow, GamePieces *ChessBoard[8]
         {
             if (chessBoard[i][j] != 0 && chessBoard[i][j]->getPiecesColour() == opponentColor)
             {
+
                 if (chessBoard[i][j]->isMoveLegal(rNow, cNow, i, j, chessBoard) == true)
                 {
-                    return true; // If the Opponent Piece can be taken then it returns true
+                    
+                    return true; // If the Opponent Piece can take the piece then it returns true
                 }
+                
             }
         }
     }
@@ -892,13 +907,16 @@ bool ChessBoard::checkMate()
 
         for (int rowCurrent = 0; rowCurrent < 8; ++rowCurrent)
         {
+           
             for (int columnCurrent = 0; columnCurrent < 8; ++columnCurrent)
             {
                 if (chessBoard[rowCurrent][columnCurrent] != 0)
                 {
+                     
 
                     if (chessBoard[rowCurrent][columnCurrent]->getPiecesColour() == playerColor)
                     {
+                         
                         for (int row = 0; row < 8; ++row)
                         {
                             for (int col = 0; col < 8; ++col)
@@ -914,6 +932,7 @@ bool ChessBoard::checkMate()
 
                                     chessBoard[rowCurrent][columnCurrent] = chessBoard[row][col];
                                     chessBoard[row][col] = tempMove;
+
 
                                     if (!thereIsAMove)
                                     {
@@ -934,6 +953,7 @@ bool ChessBoard::checkMate()
             cout << "\033[1;37m!!CHECKMATE!!\033[0m - \033[1;32mGREEN WON THE GAME\033[0m" << endl;
             cout << "" << endl;
             cout << "-------------------------------------------------" << endl;
+            exit(0);
             return true;
         }
         else
@@ -943,6 +963,7 @@ bool ChessBoard::checkMate()
             cout << "\033[1;32m!!CHECKMATE!!\033[0m - \033[1;37mWHITE WON THE GAME\033[0m" << endl;
             cout << "" << endl;
             cout << "-------------------------------------------------" << endl;
+            exit(0);
             return true;
         }
     }
@@ -977,7 +998,6 @@ bool ChessBoard::promotion(int rDest, int cDest, int rNow, int cNow, GamePieces 
             break;
         case 'Q':
             ChessBoard[rNow][cNow] = new Queen(playerColor);
-            cout << "working" << endl;
             return true;
             break;
         case 'R':
