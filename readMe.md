@@ -7,7 +7,6 @@ that prevent them from remaining in check.
 
 Furthermore, it is recommended to play this game in black-background terminal.
 
-
 Piece Notation:
 
 P - Pawn ,
@@ -17,7 +16,11 @@ Q - Queen ,
 B - Bishop ,
 R - Rook
 
-To exit the game, simply enter "exit" , "Exit" or "EXIT" in the terminal.
+
+To exit the game, simply enter "exit" in the terminal.
+
+To restart the game, simply enter "restart" in the terminal
+
 
 When a pawn reaches the last square, the user will be prompted with 
 the message: "Pick a Piece (N, Q, B, R):". The user needs to input 
