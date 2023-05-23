@@ -246,14 +246,16 @@ label1:
         {
             Player = "\033[1;37mWhite's Turn\033[0m\n";
             cout << Player;
-
+           
             cout << "\033[1;37mCoordinates of The Piece You Want To Move: \033[0m";
             cin >> initialPiece;
             if (initialPiece == "exit" || initialPiece == "Exit" || initialPiece == "EXIT")
             {
                 system(clearScreen.c_str());
                 cout << "Thanks For Playing!" << endl;
+                
                 exit(0);
+                break;
             }
             if (initialPiece == "restart" || initialPiece == "Restart" || initialPiece == "RESTART")
             {
@@ -264,11 +266,14 @@ label1:
             cout << "\033[1;37mCoordinates of Where You Want To Move The Piece To: \033[0m";
             cin >> destinationPiece;
 
+
             if (destinationPiece == "exit" || destinationPiece == "Exit" || destinationPiece == "EXIT")
             {
                 system(clearScreen.c_str());
                 cout << "Thanks For Playing!" << endl;
+                
                 exit(0);
+                break;
             }
             if (destinationPiece == "restart" || destinationPiece == "Restart" || destinationPiece == "RESTART")
             {
@@ -290,6 +295,7 @@ label1:
                 system(clearScreen.c_str());
                 cout << "Thanks For Playing!" << endl;
                 exit(0);
+                break;
             }
 
             if (initialPiece == "restart" || initialPiece == "Restart" || initialPiece == "RESTART")
@@ -306,6 +312,8 @@ label1:
                 system(clearScreen.c_str());
                 cout << "Thanks For Playing!" << endl;
                 exit(0);
+                break;
+
             }
             if (destinationPiece == "restart" || destinationPiece == "Restart" || destinationPiece == "RESTART")
             {
