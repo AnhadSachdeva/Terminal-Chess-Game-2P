@@ -254,14 +254,12 @@ label1:
                 system(clearScreen.c_str());
                 cout << "Thanks For Playing!" << endl;
                 exit(0);
-              
             }
             if (initialPiece == "restart" || initialPiece == "Restart" || initialPiece == "RESTART")
             {
                 system(clearScreen.c_str());
                 system("./chess.sh");
             }
-
 
             cout << "\033[1;37mCoordinates of Where You Want To Move The Piece To: \033[0m";
             cin >> destinationPiece;
@@ -271,7 +269,6 @@ label1:
                 system(clearScreen.c_str());
                 cout << "Thanks For Playing!" << endl;
                 exit(0);
-              
             }
             if (destinationPiece == "restart" || destinationPiece == "Restart" || destinationPiece == "RESTART")
             {
@@ -293,7 +290,6 @@ label1:
                 system(clearScreen.c_str());
                 cout << "Thanks For Playing!" << endl;
                 exit(0);
-                
             }
 
             if (initialPiece == "restart" || initialPiece == "Restart" || initialPiece == "RESTART")
@@ -310,7 +306,6 @@ label1:
                 system(clearScreen.c_str());
                 cout << "Thanks For Playing!" << endl;
                 exit(0);
-                
             }
             if (destinationPiece == "restart" || destinationPiece == "Restart" || destinationPiece == "RESTART")
             {
@@ -318,8 +313,6 @@ label1:
                 system("./chess.sh");
             }
         }
-
-
 
         // Checks if the input is valid
         if (initialPiece[0] >= 'a' && initialPiece[0] <= 'h')
@@ -741,7 +734,6 @@ void ChessBoard::flipBoard()
     }
 }
 
-
 // Checks if the any Piece can be taken or not
 bool ChessBoard::ifPieceCanBeTaken(int rNow, int cNow, GamePieces *ChessBoard[8][8])
 {
@@ -755,10 +747,9 @@ bool ChessBoard::ifPieceCanBeTaken(int rNow, int cNow, GamePieces *ChessBoard[8]
 
                 if (chessBoard[i][j]->isMoveLegal(rNow, cNow, i, j, chessBoard) == true)
                 {
-                    
+
                     return true; // If the Opponent Piece can take the piece then it returns true
                 }
-                
             }
         }
     }
@@ -907,16 +898,15 @@ bool ChessBoard::checkMate()
 
         for (int rowCurrent = 0; rowCurrent < 8; ++rowCurrent)
         {
-           
+
             for (int columnCurrent = 0; columnCurrent < 8; ++columnCurrent)
             {
                 if (chessBoard[rowCurrent][columnCurrent] != 0)
                 {
-                     
 
                     if (chessBoard[rowCurrent][columnCurrent]->getPiecesColour() == playerColor)
                     {
-                         
+
                         for (int row = 0; row < 8; ++row)
                         {
                             for (int col = 0; col < 8; ++col)
@@ -933,10 +923,9 @@ bool ChessBoard::checkMate()
                                     chessBoard[rowCurrent][columnCurrent] = chessBoard[row][col];
                                     chessBoard[row][col] = tempMove;
 
-
                                     if (!thereIsAMove)
                                     {
-                                        cout << "\033[0;36m||CHECK||\033[0;0m" << endl;
+                                        cout << "\033[0;36m!!!!!!!!!!!!! Check !!!!!!!!!!!!!!\033[0;0m" << endl;
                                         return false;
                                     }
                                 }
@@ -1105,7 +1094,7 @@ void ChessBoard::start()
     {
         if (checkMate())
         {
-            
+
             gameOver = true;
             break;
         }
