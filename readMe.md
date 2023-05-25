@@ -57,3 +57,8 @@ and run the game for you.
 Thank you once again for trying out this game. I want to note that this was
 my first coding project ever. While I understand that this may not be the most
 optimized version of chess, it fulfills its purpose effectively.
+
+Authors
+Anhad Sachdeva
+Shyamsundar Shrestha
+
