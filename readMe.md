@@ -20,7 +20,6 @@ B - Bishop ,
 R - Rook
 ```
 
-Note: If you are on Windows:
 
 ```bash
     To compile the code and run it
@@ -30,13 +29,15 @@ Note: If you are on Windows:
         g++ *.cpp -o chess.exe
         .\chess.exe 
        
-        To exit the game, simply enter "exit" in the terminal.
+    To exit the game, simply enter "exit" in the terminal.
+
+    When a pawn reaches the last square, the user will be prompted with
+    the message: "Pick a Piece (N, Q, B, R):". 
+    The user needs to input the corresponding notation for the desired piece, such as: 
+    "Q" for Queen, "N" for Knight, "B" for Bishop, "R" for Rook to promote the pawn to that piece.  
 ```
 
-When a pawn reaches the last square, the user will be prompted with
-the message: "Pick a Piece (N, Q, B, R):". The user needs to input
-the corresponding notation for the desired piece, such as "Q" for
-Queen, to promote the pawn to that piece.
+
 
 This only works on MacOS
 To restart the game, simply enter "restart" in the terminal
